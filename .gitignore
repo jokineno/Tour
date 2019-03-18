@@ -1,2 +1,5 @@
-venv
-templates
+venv/
+templates/
+hello.py
+kuvaus.txt
+
