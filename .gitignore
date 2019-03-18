@@ -1,6 +1,10 @@
+#ignore venv
 venv/
+#ignore templates
 templates/
+#ignore hello.py
 hello.py
+#ignore kuvaus.txt
 kuvaus.txt
 
-templates
+
