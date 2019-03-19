@@ -1,1 +1,1 @@
-web: gunicorn --preload --workers 1 /todosovellus/run:app
+web: gunicorn --preload --workers 1 run:app
