@@ -5,15 +5,26 @@ Sovellus on web-sivusto, josta muusikot näkevät keskitetysti kiertueen keikat 
 Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
 - Peruskäyttäjä ja Admin.
 
-- Peruskäyttäjä voi tarkastella keikkoja ja lisätä esimerkiksi vieraita vieraslistaan, mutta ei voi hallita keikkojen lisäystä, poistamista tai päivittämistä. 
-- Admin voi lisätä, poistaa, muokata konsertteja ja niihin liittyviä yksityiskohtia.
-- Adminiksi ei voi rekisteröityä, mutta peruskäyttäjäksi voi.
+#### Peruskäyttäjä voi:
+- Tarkastella keikkoja
+- Lisätä vieraita keikan vieraslistaan
+
+#### Admin voi:
+- Lisätä, poistaa, muokata konsertteja ja niihin liittyviä yksityiskohtia.
+- Listata käyttäjiä (saada mahdollisesti raportteja heistä: esim soitettujen keikkojen määrä tms statistiikkaa)
+- Muokata käyttäjien oikeuksia
 
 ### Toiminnallisuus
 - Kirjautuminen: peruskäyttäjä tai admin
-- Sovelluksessa peruskäyttäjä voi listata keikkansa eri filtterein (myöhemmin): päivämäärän (ennen/jälkeen) tai artistin perusteella.
-- Admin voi listata sovellusta käyttäviä peruskäyttäjiä ja antaa muokata heidän oikeuksiaan tai poistaa heidät sovelluksesta. 
+- Keikkojen listaus eri filtterein (myöhemmin): päivämäärän (ennen/jälkeen) tai artistin perusteella
+- Käyttäjien listaus, poistaminen, muokkaaminen (Admin)
 - Admin voi myös poistaa muusikon yksittäiseltä keikalta ja lisätä tämän tilalleen esimerkiksi toisen soittajan.
 
 
+
+
 [Linkki sovellukseen](https://tsoha-tour-demo.herokuapp.com)
+
+### Dokumentaatio
+[User Storyt](https://github.com/jokineno/Tour/blob/master/documentation/userstories.md)
+[Tietokantakaavio](https://github.com/jokineno/Tour/blob/master/documentation/tietokantakaavio.png)

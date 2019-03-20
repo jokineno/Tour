@@ -9,7 +9,7 @@
     <th>Showtime</th>
   </tr>
   <form method="POST" action="{{ url_for('tasks_create') }}">
-    <td><input type="date" name="date"/></td>
+    <td><input type="date" name="date" value="YYYY/MM/DD"></td>
     <td><input type="text" name="name"/></td>
     <td><input type="text" name="place"/></td>
     <td><input type="time" name="showtime" value="00:00"/></td>
