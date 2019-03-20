@@ -1,7 +1,5 @@
 ### The Tour
-Tämä on harjoitustyö tietokantaa käyttävää sovellusta varten.
-
-Sovelluks on web-sivusto, jossa muusikot näkevät keikkansa ja keikan tarpeelliset tiedot, kuten logistiikan aikataulu$
+Sovellus on web-sivusto, josta muusikot näkevät kiertueen keikat ja keikkaan liittyviä tietoja. 
 
 Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
 - Peruskäyttäjä ja Admin.
