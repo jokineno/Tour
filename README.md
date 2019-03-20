@@ -26,5 +26,5 @@ Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
 [Linkki sovellukseen](https://tsoha-tour-demo.herokuapp.com)
 
 ### Dokumentaatio
-- [User Storyt](https://github.com/jokineno/Tour/blob/master/documentation/userstories.md)
+- [Käyttäjätapauksia](https://github.com/jokineno/Tour/blob/master/documentation/kayttajatapaukset.md)
 - [Tietokantakaavio](https://github.com/jokineno/Tour/blob/master/documentation/tietokantakaavio.png)
