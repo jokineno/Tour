@@ -15,16 +15,28 @@ def tasks_form():
 def tasks_set_done(task_id):
 
     t = Task.query.get(task_id)
-    t.done = True
-    db.session().commit()
+    if t.done==True:
+        t.done = False
+        db.session().commit()
+    else: 
+        t.done=True
+        db.session().commit()
   
+    return redirect(url_for("tasks_index"))
+
+@app.route("/tasks/delete/<task_id>/", methods=["POST","GET"])
+def tasks_remove(task_id):
+    t = Task.query.get(task_id)
+    db.session().delete(t)
+    db.session().commit()
+
     return redirect(url_for("tasks_index"))
 
 
 @app.route("/tasks/", methods=["POST"])
 def tasks_create():
-    print(request.form.get("name"))
-    t = Task(request.form.get("name"))
+    
+    t = Task(request.form.get("date"),request.form.get("name"),request.form.get("place"),request.form.get("showtime"))
     
     db.session().add(t)
     db.session().commit()

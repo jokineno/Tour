@@ -1,8 +1,19 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<form method="POST" action="{{ url_for('tasks_create') }}">
-  <input type="text" name="name"/>
-  <input type="submit" value="Add a new task"/>
-</form>
+<table>
+  <tr>
+    <th>Pvm</th>
+    <th>Keikka</th>
+    <th>Paikka</th>
+    <th>Showtime</th>
+  </tr>
+  <form method="POST" action="{{ url_for('tasks_create') }}">
+    <td><input type="date" name="date"/></td>
+    <td><input type="text" name="name"/></td>
+    <td><input type="text" name="place"/></td>
+    <td><input type="time" name="showtime" value="00:00"/></td>
+    <td><input type="submit" value="Lisää uusi keikka"/></td>
+  </form>
+</table>
 {% endblock %}
