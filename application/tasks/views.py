@@ -2,7 +2,7 @@ from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.tasks.models import Task
 from application.tasks.forms import TaskForm
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 
 @app.route("/tasks/",methods=["GET"])
@@ -52,6 +52,7 @@ def tasks_create():
         return render_template("tasks/new.html", form = form)
     t = Task(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
     t.status = form.status.data
+    t.account_id = current_user.id
 
     db.session().add(t)
     db.session().commit()
