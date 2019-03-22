@@ -4,10 +4,12 @@ app = Flask(__name__)
 
 # Tuodaan SQLAlchemy käyttöön
 from flask_sqlalchemy import SQLAlchemy
+
 # Käytetään tasks.db-nimistä SQLite-tietokantaa. Kolme vinoviivaa
 # kertoo, tiedosto sijaitsee tämän sovelluksen tiedostojen kanssa
 # samassa paikassa
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tasks.db"
+
 # Pyydetään SQLAlchemyä tulostamaan kaikki SQL-kyselyt
 app.config["SQLALCHEMY_ECHO"] = True
 
@@ -23,7 +25,7 @@ from application.tasks import views
 from application.auth import models
 from application.auth import views
 
-#kirjautuminen
+
 # kirjautuminen
 from application.auth.models import User
 from os import urandom
@@ -39,8 +41,6 @@ login_manager.login_message = "Please login to use this functionality."
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-
-
 
 
 # Luodaan lopulta tarvittavat tietokantataulut
