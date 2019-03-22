@@ -1,6 +1,7 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.tasks.models import Task
+from application.tasks.forms import TaskForm
 
 
 @app.route("/tasks/",methods=["GET"])
@@ -9,17 +10,21 @@ def tasks_index():
 
 @app.route("/tasks/new/")
 def tasks_form():
-    return render_template("tasks/new.html")
+
+    return render_template("tasks/new.html", form=TaskForm())
 
 @app.route("/tasks/<task_id>/", methods=["POST"])
 def tasks_set_done(task_id):
 
     t = Task.query.get(task_id)
-    if t.done==True:
-        t.done = False
+    if t.status=="Tulossa":
+        t.status = "Mennyt"
         db.session().commit()
-    else: 
-        t.done=True
+    elif t.status== "Mennyt": 
+        t.status="Peruttu"
+        db.session().commit()
+    elif t.status=="Peruttu":
+        t.status="Tulossa"
         db.session().commit()
   
     return redirect(url_for("tasks_index"))
@@ -36,9 +41,15 @@ def tasks_remove(task_id):
 @app.route("/tasks/", methods=["POST"])
 def tasks_create():
     
-    t = Task(request.form.get("date"),request.form.get("name"),request.form.get("place"),request.form.get("showtime"))
+    form = TaskForm(request.form)
     
+    if not form.validate():
+        return render_template("tasks/new.html", form = form)
+    t = Task(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
+    t.status = form.status.data
+
     db.session().add(t)
     db.session().commit()
+  
 
     return redirect(url_for("tasks_index"))

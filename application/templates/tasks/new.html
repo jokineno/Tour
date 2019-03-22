@@ -1,19 +1,70 @@
 {% extends "layout.html" %}
-  
+
 {% block body %}
-<table>
-  <tr>
-    <th>Pvm</th>
-    <th>Keikka</th>
-    <th>Paikka</th>
-    <th>Showtime</th>
-  </tr>
-  <form method="POST" action="{{ url_for('tasks_create') }}">
-    <td><input type="date" name="date" value="YYYY/MM/DD"></td>
-    <td><input type="text" name="name"/></td>
-    <td><input type="text" name="place"/></td>
-    <td><input type="time" name="showtime" value="00:00"/></td>
-    <td><input type="submit" value="Lisää uusi keikka"/></td>
-  </form>
+
+<form method="POST" action="{{ url_for('tasks_create') }}">
+
+  <table>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+      <td>
+        {{ form.name }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr> 
+    <tr>
+      <td>
+        {{ form.place.label }}
+      </td>
+      <td>
+        {{ form.place }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.pvm.label }}
+      </td>
+      <td>
+        {{ form.pvm }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.showtime.label }}
+      </td>
+      <td>
+        {{ form.showtime }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.status.label }}
+      </td>
+      <td>
+        {{ form.status }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Lisää uusi keikka" />
+      </td>
+    </tr>
+
+</form>
 </table>
 {% endblock %}
