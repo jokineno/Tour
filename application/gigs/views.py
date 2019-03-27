@@ -6,8 +6,9 @@ from flask_login import login_required, current_user
 
 
 @app.route("/gigs/",methods=["GET"])
+@login_required
 def gigs_index():
-    return render_template("gigs/list.html", gigs=Gig.query.all())
+    return render_template("gigs/list.html", gigs=current_user.gigs)
 
 @app.route("/gigs/new/")
 @login_required
