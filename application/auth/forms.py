@@ -5,8 +5,8 @@ from wtforms import PasswordField, StringField,IntegerField, validators, Validat
 from application.auth.models import User
 
 class LoginForm(FlaskForm):
-    username = StringField("Username")
-    password = PasswordField("Password")
+    username = StringField("Username", [validators.InputRequired()])
+    password = PasswordField("Password", [validators.InputRequired()])
   
     class Meta:
         csrf = False

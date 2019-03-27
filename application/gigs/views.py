@@ -10,11 +10,11 @@ from flask_login import login_required, current_user
 def gigs_index():
     return render_template("gigs/list.html", gigs=current_user.gigs)
 
-@app.route("/gigs/new/")
+@app.route("/gigs/new/", methods=["GET","POST"])
 @login_required
 def gigs_form():
-
-    return render_template("gigs/new.html", form=GigForm())
+    form = GigForm()
+    return render_template("gigs/new.html", form=form)
 
 @app.route("/gigs/<gig_id>/", methods=["POST"])
 @login_required

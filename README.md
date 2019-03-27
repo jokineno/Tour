@@ -5,13 +5,15 @@ Sovellus on web-sivusto, josta muusikot näkevät keskitetysti kiertueen keikat 
 
 
 [Linkki sovellukseen](https://tsoha-tour-demo.herokuapp.com)
-### Testitunnukset: 
+### Testitunnukset:
+#### Keikat listautuvat tunnuksen mukaan. Eli yksi käyttäjä näkee vaan häneen liittyvät keikkansa.  
 - Username: hello
 - Password: world
-
-Vaihtoehtoiset tunnukset: 
+ 
 - Username: user
 - Password: user
+
+
 
 ### Dokumentaatio
 - [Käyttäjätapauksia](https://github.com/jokineno/Tour/blob/master/documentation/kayttajatapaukset.md)
