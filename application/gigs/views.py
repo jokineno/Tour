@@ -30,7 +30,7 @@ def gigs_set_done(gig_id):
         t.status="Tulossa"
         db.session().commit()
   
-    return redirect(url_for("gigss_index"))
+    return redirect(url_for("gigs_index"))
 
 @app.route("/gigs/delete/<gig_id>/", methods=["GET","POST"])
 @login_required
