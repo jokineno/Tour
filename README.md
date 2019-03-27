@@ -15,8 +15,9 @@ Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
 - Muokata käyttäjien oikeuksia
 
 ### Toiminnallisuus
-- Kirjautuminen: peruskäyttäjä tai admin
-- Keikkojen listaus eri filtterein (myöhemmin): päivämäärän (ennen/jälkeen) tai artistin perusteella
+- Kirjautuminen ja uloskirjautuminen: peruskäyttäjä tai admin.
+- Kirjautumisessa on käytössä lomakkeen validointi. Esim: salasana ei saa olla tyhjä tai nimimerkin pitää olla vähintään 2 merkkiä pitkä. 
+- Keikkojen listaus eri filtterein (myöhemmin): päivämäärän (ennen/jälkeen), nouseva tai laskeva järjestys pvm mukaan tai keikkojen listaus artistin perusteella. -> tietty keikka liittyy aina tiettyyn artistiin.
 - Käyttäjien listaus, poistaminen, muokkaaminen (Admin)
 - Admin voi myös poistaa muusikon yksittäiseltä keikalta ja lisätä tämän tilalleen esimerkiksi toisen soittajan.
 
@@ -24,6 +25,9 @@ Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
 
 
 [Linkki sovellukseen](https://tsoha-tour-demo.herokuapp.com)
+### Testitunnukset: 
+Username: hello
+Password: world
 
 ### Dokumentaatio
 - [Käyttäjätapauksia](https://github.com/jokineno/Tour/blob/master/documentation/kayttajatapaukset.md)

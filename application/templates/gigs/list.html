@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+  <tr>
+    <th>Poista</th>
+    <th>Pvm</th>
+    <th>Keikka</th>
+    <th>Paikka</th>
+    <th>Showtime</th>
+    <th>Tila</th>
+  </tr>
+  {% for gig in gigs %}
+  <tr>
+    <td><a href="{{ url_for('gigs_remove', gig_id=gig.id) }}">X</a></td>
+    <td>{{ gig.pvm }}</td>
+    <td>{{ gig.name }}</td>
+    <td>{{ gig.place }}</td>
+    <td>klo {{ gig.showtime }}</td>
+    <td>{{ gig.status }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('gigs_set_done', gig_id=gig.id) }}">
+        <input type="submit" value="Muuta status!" />
+      </form>
+    </td>
+    <td>
+        <form method="GET" action="{{ url_for('gigs_view', gig_id=gig.id) }}">
+          <input type="submit" value="View!" />
+        </form>
+      </td>
+    
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

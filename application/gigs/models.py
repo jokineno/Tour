@@ -1,7 +1,7 @@
 from application import db
 
 #tässä on harjoitustyön
-class Task(db.Model):
+class Gig(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(144), nullable=False)
     place = db.Column(db.String(144), nullable=False)

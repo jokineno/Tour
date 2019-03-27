@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <h1>Gig details</h1>
+  <h2>{{ gig.name }}, {{ gig.place }}</h2> 
+
+  
+  <table class="no name yet">
+        <tr>
+          <thead class="no name">
+            <th>Date</th>
+            <th>City</th>
+            <th>Venue</th>
+            <th>Showtime</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+          </thead>
+        </tr>
+        <tr>
+          <td>{{ gig.pvm }}</td> 
+          <td>{{ gig.name }}</td>
+          <td>{{ gig.place }}</td>
+          <td>{{ gig.showtime }}</td> 
+          <td>{{ gig.status }}</td> 
+          <td>
+            <form method="GET" action="{{ url_for('gigs_edit', gig_id=gig.id) }}">
+                <input type="submit" class="btn btn-primary" value=" edit "/>
+            </form>
+          </td>
+        </tr> 
+      </table>
+      
+{% endblock %}

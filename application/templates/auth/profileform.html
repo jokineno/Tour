@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('auth_profile') }}">
+    <div class="form-group">
+        {{ form.name.label }}
+        {{ form.name(readonly=True) }}
+    </div>
+    <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username(readonly=True)}}
+       
+    </div>    
+    <div class="form-group">
+            {{ form.gigs_played.label }}
+            {{ form.gigs_played(readonly=True)}}
+           
+    </div>    
+    <div class="form-group">
+            {{ form.upcoming_gigs.label }}
+            {{ form.upcoming_gigs(readonly=True)}}
+           
+        </div>    
+    <button type="submit" class="btn btn-black">Muokkaa tietoja</button>
+    {% for error in form.username.errors %}
+    <div class="alert alert-warning mt-3">
+        {{ error }}
+    </div>
+    {% endfor %}
+</form>
+{% endblock %}
