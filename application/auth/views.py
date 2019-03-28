@@ -47,9 +47,30 @@ def auth_register():
 
     return redirect(url_for("auth_login"))
 
-@app.route("/auth/profile/")
-def auth_profile():
-  
-   return render_template("auth/profileform.html", form=ProfileForm())
+@app.route("/auth/profile/", methods=["GET"])
+def auth_profile_view():
+    idnum = current_user.id
+    form = ProfileForm(request.form)
+    
+    return render_template("auth/profileform.html",form=form, current = User.query.get(idnum))
+
+
+@app.route("/auth/profile/edit/", methods=["GET","POST"])
+def auth_profile_edit():
+    if request.method == "GET":
+        profile = User.query.get(current_user.id)
+        form = ProfileForm(obj=profile)
+    
+        return render_template("auth/profileeditform.html",form=form,user_id=current_user.id)
+    
+    form = ProfileForm(request.form)
+    profile = User.query.get(current_user.id)
+    
+    profile.name = form.name.data
+    profile.username = form.username.data
+    
+    db.session().commit()
+
+    return redirect(url_for("auth_profile_view"))
     
 

@@ -18,7 +18,7 @@ def gigs_form():
 
 @app.route("/gigs/<gig_id>/", methods=["POST"])
 @login_required
-def gigs_set_done(gig_id):
+def gigs_change_status(gig_id):
 
     t = Gig.query.get(gig_id)
     if t.status=="Tulossa":

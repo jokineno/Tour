@@ -19,7 +19,7 @@
     <td>klo {{ gig.showtime }}</td>
     <td>{{ gig.status }}</td>
     <td>
-      <form method="POST" action="{{ url_for('gigs_set_done', gig_id=gig.id) }}">
+      <form method="POST" action="{{ url_for('gigs_change_status', gig_id=gig.id) }}">
         <input type="submit" value="Muuta status!" />
       </form>
     </td>

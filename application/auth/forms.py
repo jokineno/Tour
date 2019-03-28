@@ -27,8 +27,8 @@ class ProfileForm(FlaskForm):
     #read only
     name = StringField("Name: ")
     username = StringField("Username: ")
-    gigs_played = StringField("Gigs played: ")
-    upcoming_gigs = IntegerField("Upcoming Gigs: ")
+    #gigs_played = IntegerField("Gigs played: ")
+    #upcoming_gigs = IntegerField("Upcoming Gigs: ")
 
     class Meta:
         csrf = False

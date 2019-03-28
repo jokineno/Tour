@@ -14,6 +14,12 @@ Sovellus on web-sivusto, josta muusikot näkevät keskitetysti kiertueen keikat 
 - Password: user
 
 
+| Username | Password |
+| -------- | -------- |
+| hello    | world    |
+| user     | user     |
+ 
+
 
 ### Dokumentaatio
 - [Käyttäjätapauksia](https://github.com/jokineno/Tour/blob/master/documentation/kayttajatapaukset.md)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,SelectField,BooleanField, validators,ValidationError
+from wtforms import StringField,TimeField,DateField,SelectField,BooleanField, validators,ValidationError
 from wtforms.fields.html5 import DateField, TimeField
 
 class GigForm(FlaskForm):
