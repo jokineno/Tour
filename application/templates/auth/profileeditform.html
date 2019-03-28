@@ -3,10 +3,42 @@
 {% block body %}
 <h1>Profile edit</h1>
 
-{{ form.name.label }}
-{{ form.name }}
-
-{{ form.username.label }}
-{{ form.username }}
-
+<form method="POST" action="{{ url_for('auth_profile_edit') }}">
+    <table>
+        <tr>
+            <td>
+                {{ form.name.label }}
+            </td>
+            <td>
+                {{ form.name }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.username.label }}
+            </td>
+            <td>
+                {{ form.username }}
+            </td>
+            <td>
+                    <ul>
+                        {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+        </tr>
+    </table>
+    <input type="submit" class="btn btn-primary" value="Save changes" />
+</form>
+<form method="GET" action="{{ url_for('auth_profile_view') }}">
+    <input type="submit" class="btn btn-primary" value="Back" />
+</form>
 {% endblock %}

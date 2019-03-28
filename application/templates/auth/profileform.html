@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td>
-            Username
+            Username:
         </td>
         <td>
             {{ current.username }}
@@ -22,12 +22,35 @@
 
     </tr>
     <tr>
-        <form action="{{ url_for('auth_profile_edit')}}">
-            <input type="submit" value="Change profile details" />
-        </form>
+        <td>
+            Role
+        </td>
+        <td>
+            Musician/Production Manager/ etc.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Played Gigs:
+        </td>
+        <td>
+            X gigs played (in progress)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Upcoming Gigs:
+        </td>
+        <td>
+            X upcoming gigs (in progress)
+        </td>
     </tr>
 
 </table>
+<form action="{{ url_for('auth_profile_edit')}}">
+    <input type="submit" value="Edit" />
+</form>
+
 
 
 

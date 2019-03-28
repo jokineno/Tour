@@ -25,8 +25,8 @@ class RegistrationForm(FlaskForm):
 
 class ProfileForm(FlaskForm):
     #read only
-    name = StringField("Name: ")
-    username = StringField("Username: ")
+    name = StringField("Name: ", [validators.Length(min=2, max=30, message="Must be within 2-30 characters")])
+    username = StringField("Username: ", [validators.Length(min=2, max=30, message="Must be within 2-30 characters")])
     #gigs_played = IntegerField("Gigs played: ")
     #upcoming_gigs = IntegerField("Upcoming Gigs: ")
 

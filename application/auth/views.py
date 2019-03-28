@@ -64,6 +64,8 @@ def auth_profile_edit():
         return render_template("auth/profileeditform.html",form=form,user_id=current_user.id)
     
     form = ProfileForm(request.form)
+    if not form.validate():
+        return render_template("auth/profileeditform.html", form = form)
     profile = User.query.get(current_user.id)
     
     profile.name = form.name.data
