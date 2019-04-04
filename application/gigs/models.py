@@ -23,7 +23,6 @@ class Gig(db.Model):
         self.place = place
         self.pvm = pvm
         self.showtime = showtime
-        self.tour_id = 1
         self.status = False
 
 
@@ -56,3 +55,6 @@ class Gig(db.Model):
             result = row[0]
            
         return result
+
+    
+    

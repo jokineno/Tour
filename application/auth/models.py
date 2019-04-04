@@ -13,7 +13,7 @@ class User(Base):
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
-    role = db.Column(db.String(144), nullable=False)
+    #role = db.Column(db.String(144), nullable=False)
     
     gigs = db.relationship("Gig",backref='account',lazy=True)
     

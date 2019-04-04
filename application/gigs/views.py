@@ -2,6 +2,7 @@ from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.gigs.models import Gig
 from application.gigs.forms import GigForm
+from application.tour.models import Tour
 from flask_login import login_required, current_user
 
 
@@ -14,6 +15,9 @@ def gigs_index():
 @login_required
 def gigs_form():
     form = GigForm()
+    #tours = [(g.name, g.name) for g in Tour.query.order_by('name')]
+    #form.tour_id.choices = tours
+
     return render_template("gigs/new.html", form=form)
 
 @app.route("/gigs/<gig_id>/", methods=["POST"])
@@ -53,7 +57,7 @@ def gigs_create():
     t = Gig(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
     t.status = form.status.data
     t.account_id = current_user.id
-
+    t.tour_id = form.tour_id.data
     db.session().add(t)
     db.session().commit()
   

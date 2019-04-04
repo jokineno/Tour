@@ -1,5 +1,5 @@
 from application import db
-
+from sqlalchemy.sql import text
 
 #tässä on harjoitustyön
 class Tour(db.Model):
@@ -14,7 +14,7 @@ class Tour(db.Model):
     #                       nullable=False)
     # Vieraana avaimena keikat, jotka liittyvät tähän kiertueeseen. Samoin jäsenet, jotka liittyvät tähän kiertueeseen
     
-    gigs = db.relationship("Gig", backref='gig', lazy=True)
+    gigs = db.relationship("Gig", backref='tour', lazy=True)
     
 
     def __init__(self, name, start_date, end_date):
@@ -22,3 +22,12 @@ class Tour(db.Model):
         self.start_date = start_date
         self.end_date = end_date
 
+
+    @staticmethod
+    def get_all_tours():
+        stmt = text("SELECT name FROM tour")
+        res = db.engine.execute(stmt)
+        results = []
+        for item in res:
+            results.append(item[0])
+        return results
