@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField,IntegerField, validators, ValidationError
+from wtforms import PasswordField, StringField, SelectField, IntegerField, validators, ValidationError
 
 
 from application.auth.models import User
@@ -27,6 +27,7 @@ class ProfileForm(FlaskForm):
     #read only
     name = StringField("Name: ", [validators.Length(min=2, max=30, message="Must be within 2-30 characters")])
     username = StringField("Username: ", [validators.Length(min=2, max=30, message="Must be within 2-30 characters")])
+    role = SelectField("Role: ", choices=[("Musician","Musician"),("Production Manager","Production Manager"),("Bus Driver","Bus Driver")], option_widget=None)
     #gigs_played = IntegerField("Gigs played: ")
     #upcoming_gigs = IntegerField("Upcoming Gigs: ")
 

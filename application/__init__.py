@@ -17,11 +17,15 @@ db = SQLAlchemy(app)
 
 from application import views
 
+
 from application.gigs import models
 from application.gigs import views
 
 from application.auth import models
 from application.auth import views
+
+from application.tour import models
+from application.tour import views
 
 
 # login

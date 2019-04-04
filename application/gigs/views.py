@@ -83,7 +83,6 @@ def gigs_edit(gig_id):
     gig.pvm = form.pvm.data
     gig.showtime = form.showtime.data
     gig.status = form.status.data
-
     db.session().commit()
 
     return redirect(url_for("gigs_view", gig_id = gig_id))

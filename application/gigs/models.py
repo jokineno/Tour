@@ -1,4 +1,5 @@
 from application import db
+from sqlalchemy.sql import text
 
 #tässä on harjoitustyön
 class Gig(db.Model):
@@ -13,9 +14,8 @@ class Gig(db.Model):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
-    
 
-    
+    tour_id = db.Column(db.Integer,db.ForeignKey('tour.id'),nullable=False)
 
 
     def __init__(self, name, place, pvm, showtime):
@@ -23,5 +23,36 @@ class Gig(db.Model):
         self.place = place
         self.pvm = pvm
         self.showtime = showtime
+        self.tour_id = 1
         self.status = False
-            
+
+
+    @staticmethod
+    def upcoming_gigs(user_id):
+        stmt = text("SELECT COUNT (account_id) FROM Gig WHERE account_id ="+str(user_id)+" AND status='Tulossa';")
+        res = db.engine.execute(stmt)
+        result = 0
+        for row in res:
+            result = row[0]
+           
+        return result
+    
+    @staticmethod
+    def past_gigs(user_id):
+        stmt = text("SELECT COUNT (account_id) FROM Gig WHERE account_id ="+str(user_id)+" AND status='Mennyt';")
+        res = db.engine.execute(stmt)
+        result = 0
+        for row in res:
+            result = row[0]
+           
+        return result
+    
+    @staticmethod
+    def cancelled_gigs(user_id):
+        stmt = text("SELECT COUNT (account_id) FROM Gig WHERE account_id ="+str(user_id)+" AND status='Peruttu';")
+        res = db.engine.execute(stmt)
+        result = 0
+        for row in res:
+            result = row[0]
+           
+        return result

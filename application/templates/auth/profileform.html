@@ -2,6 +2,8 @@
 
 {% block body %}
 <h1>Profile details</h1>
+
+
 <table class="no name yet">
     <tr>
         <td>
@@ -23,10 +25,10 @@
     </tr>
     <tr>
         <td>
-            Role
+            {{ form.role.label }}
         </td>
         <td>
-            Musician/Production Manager/ etc.
+            {{ current.role }}
         </td>
     </tr>
     <tr>
@@ -34,7 +36,7 @@
             Played Gigs:
         </td>
         <td>
-            X gigs played (in progress)
+            {{past}}
         </td>
     </tr>
     <tr>
@@ -42,9 +44,17 @@
             Upcoming Gigs:
         </td>
         <td>
-            X upcoming gigs (in progress)
+            {{upcoming}} 
         </td>
     </tr>
+    <tr>
+            <td>
+                Cancelled Gigs:
+            </td>
+            <td>
+                {{cancelled}} 
+            </td>
+        </tr>
 
 </table>
 <form action="{{ url_for('auth_profile_edit')}}">

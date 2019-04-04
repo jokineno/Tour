@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+ 
+<form method="POST" action="{{ url_for('tour_create') }}">
+    
+
+  <table>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+      <td>
+        {{ form.name }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr> 
+    <tr>
+      <td>
+        {{ form.start_date.label }}
+      </td>
+      <td>
+            {{ form.start_date(class='datepicker') }}
+            {{ form.hidden_tag() }}
+        </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.end_date.label }}
+      </td>
+      <td>
+          {{ form.pvm(class='datepicker') }}
+          {{ form.hidden_tag() }}
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Lisää uusi kiertue" />
+      </td>
+    </tr>
+
+</form>
+</table>
+{% endblock %}

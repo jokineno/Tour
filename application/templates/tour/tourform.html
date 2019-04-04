@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+KESKEN
+<ul>
+    <li>Show määrät lasketaan käyttäjäkohtaisesti</li>
+    <li>Kiertueeseen liittyy monta keikkaa. SQL kyselyllä saadaan kiertueen keikat gigs tietokannasta otettua. </li>
+    <li>Sisältää nyt vain staattista dataa</li>
+
+</ul>
+
+
+{% if tours|length %}
+<table>
+    <tr>
+        <th>Tour name</th>
+        <th>StartDate</th>
+        <th>EndDate</th>
+        <th>Shows</th>
+    </tr>
+    {% for tour in tours %}
+    <tr>
+        <td>{{ tour.name }}</td>
+        <td>{{ tour.start_date }}</td>
+        <td>klo {{ tour.end_date }}</td>
+        <td>20</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>You don't have any tours</p>
+
+{% endif %}
+
+{% endblock %}

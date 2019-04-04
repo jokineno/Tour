@@ -9,6 +9,7 @@
     <th>Paikka</th>
     <th>Showtime</th>
     <th>Tila</th>
+    <th>Kiertue</th>
   </tr>
   {% for gig in gigs %}
   <tr>
@@ -18,6 +19,7 @@
     <td>{{ gig.place }}</td>
     <td>klo {{ gig.showtime }}</td>
     <td>{{ gig.status }}</td>
+    <td>{{ gig.tour_id }}</td>
     <td>
       <form method="POST" action="{{ url_for('gigs_change_status', gig_id=gig.id) }}">
         <input type="submit" value="Muuta status!" />

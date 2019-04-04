@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, current_user
 
 from application import app, db
 from application.auth.models import User
+from application.gigs.models import Gig
 from application.auth.forms import LoginForm, RegistrationForm, ProfileForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
@@ -51,8 +52,10 @@ def auth_register():
 def auth_profile_view():
     idnum = current_user.id
     form = ProfileForm(request.form)
-    
-    return render_template("auth/profileform.html",form=form, current = User.query.get(idnum))
+    upcoming_gigs = Gig.upcoming_gigs(idnum)
+    past_gigs = Gig.past_gigs(idnum)
+    cancelled_gigs = Gig.cancelled_gigs(idnum)
+    return render_template("auth/profileform.html",form=form, current = User.query.get(idnum), upcoming = upcoming_gigs, past = past_gigs, cancelled = cancelled_gigs)
 
 
 @app.route("/auth/profile/edit/", methods=["GET","POST"])
@@ -70,6 +73,7 @@ def auth_profile_edit():
     
     profile.name = form.name.data
     profile.username = form.username.data
+    profile.role = form.role.data
     
     db.session().commit()
 
