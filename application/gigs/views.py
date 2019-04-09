@@ -4,21 +4,28 @@ from application.gigs.models import Gig
 from application.gigs.forms import GigForm
 from application.tour.models import Tour
 from flask_login import login_required, current_user
+from sqlalchemy import desc, asc
+from time import strftime
+
 
 
 @app.route("/gigs/",methods=["GET"])
 @login_required
 def gigs_index():
-    return render_template("gigs/list.html", gigs=current_user.gigs)
+    return render_template("gigs/list.html", gigs=current_user.gigs, tourName = Tour.get_tourName_by_id)
 
 @app.route("/gigs/new/", methods=["GET","POST"])
 @login_required
 def gigs_form():
-    form = GigForm()
-    #tours = [(g.name, g.name) for g in Tour.query.order_by('name')]
-    #form.tour_id.choices = tours
-
+    form = GigForm(request.form)
+    tours = [(g.id, g.name) for g in Tour.query.order_by('name')]
+    print(tours)
+    
+    form.tour_id.choices = tours
+    
     return render_template("gigs/new.html", form=form)
+    
+    
 
 @app.route("/gigs/<gig_id>/", methods=["POST"])
 @login_required
@@ -50,19 +57,30 @@ def gigs_remove(gig_id):
 @login_required
 def gigs_create():
     
-    form = GigForm(request.form)   
+    form = GigForm(request.form)  
+    #selvitä tämä mysteeri! 
+    if not form.validate_on_submit():
+        print("ONNISTUI")
+        t = Gig(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
+        t.status = form.status.data
+        t.account_id = current_user.id
+        t.tour_id = form.tour_id.data
+        
+        print("TIEDOT: ")
+        print(type(t.tour_id)) #int koska coerce = int
+        print(t.tour_id) #2
     
-    if not form.validate():
-        return render_template("gigs/new.html", form = form)
-    t = Gig(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
-    t.status = form.status.data
-    t.account_id = current_user.id
-    t.tour_id = form.tour_id.data
-    db.session().add(t)
-    db.session().commit()
-  
+        db.session().add(t)
+        db.session().commit() 
 
-    return redirect(url_for("gigs_index"))
+        return redirect(url_for("gigs_index"))
+    
+    elif not form.validate():
+        print("FORM EI VALIDOI")
+        tours = [(g.id, g.name) for g in Tour.query.order_by('name')]
+        form.tour_id.choices = tours
+        print(tours)
+        return render_template("gigs/new.html", form = form)
 
 
 @app.route("/gigs/view/<gig_id>/", methods=["GET"])
@@ -90,3 +108,18 @@ def gigs_edit(gig_id):
     db.session().commit()
 
     return redirect(url_for("gigs_view", gig_id = gig_id))
+
+
+@app.route("/gigs/search/", methods=["GET"])
+def find_gigs():
+    return render_template("gigs/list.html", gigs=Gig.find_gigs(request.args.get("query")), tourName=Tour.get_tourName_by_id, formaatti = strftime)    
+
+
+@app.route("/gigs/asc_by_date/", methods=["GET"])
+def list_by_date_asc():
+    return render_template("/gigs/list.html",gigs=Gig.query.order_by(asc(Gig.pvm)).all(), tourName=Tour.get_tourName_by_id)    
+
+@app.route("/gigs/desc_by_date/", methods=["GET"])
+def list_by_date_desc():
+    return render_template("/gigs/list.html", gigs=Gig.query.order_by(desc(Gig.pvm)).all(), tourName=Tour.get_tourName_by_id)    
+

@@ -18,10 +18,10 @@
           </thead>
         </tr>
         <tr>
-          <td>{{ gig.pvm }}</td> 
+          <td>{{ gig.pvm.strftime('%Y-%m-%d') }}</td> 
           <td>{{ gig.name }}</td>
           <td>{{ gig.place }}</td>
-          <td>{{ gig.showtime }}</td> 
+          <td>{{ gig.showtime.strftime('%H:%M') }}</td> 
           <td>{{ gig.status }}</td> 
           <td>
             <form method="GET" action="{{ url_for('gigs_edit', gig_id=gig.id) }}">

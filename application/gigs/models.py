@@ -57,4 +57,17 @@ class Gig(db.Model):
         return result
 
     
-    
+    @staticmethod    
+    def find_gigs(query):
+        stmt = text("SELECT * FROM Tour"
+                    " LEFT JOIN gig ON Tour.id = tour_id"
+                    " WHERE (Tour.name || Gig.place || Gig.name) LIKE '%{0}%';".format(query))
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row)
+
+        return response
+
+   

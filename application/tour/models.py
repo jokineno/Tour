@@ -31,3 +31,22 @@ class Tour(db.Model):
         for item in res:
             results.append(item[0])
         return results
+
+    @staticmethod
+    def get_tourName_by_id(id):
+        stmt = text("SELECT name FROM tour WHERE id = " + str(id) + ";")
+        res = db.engine.execute(stmt)
+        result = ""
+        for item in res:
+            result = item[0]
+        return result
+
+    @staticmethod
+    def get_gig_amount_by_id(id):
+        stmt = text("SELECT COUNT (tour_id) FROM gig WHERE tour_id = " + str(id) + ";")
+        res = db.engine.execute(stmt)
+        result = 0
+        for item in res:
+            result = item[0]
+        return result
+       
