@@ -48,11 +48,13 @@
   </nav>
   
   {% if current_user.is_authenticated %}
-  <div>ROLE NAME:  ON : {{ current_user.role.name }}</div>
-  <div>USER NAME:   : {{ current_user.name}}</div>
+  <div>Hello! Now You're Logged In</div>
   {% if current_user.role.name == 'ADMIN' %}
-  JEEEJEE
+  <div>Your user role is "ADMIN"</div>
+  {% else %}
+  <div>Your user role is "USER"</div>
   {% endif %}
+
   {% endif %}
 
   <a name="page-content"></a>

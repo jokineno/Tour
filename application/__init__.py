@@ -110,7 +110,17 @@ try:
         admin.role_id = 2
         db.session().add(admin)
         db.session().commit()
+    
+    userX = User.query.filter_by(role_id=1).first()
 
+    #luodaan admin käynnistettäessä ohjelma ekan kerran
+    if not userX:
+        userX = User("USER","user","user")
+        userX.role_id = 1
+        db.session().add(userX)
+        db.session().commit()
+
+    #luodaan "muut" -kiertue aluksi. 
     if Tour.query.first() == None:
         name = "Muut"
         start_date = datetime.strptime("2000-01-01","%Y-%m-%d")

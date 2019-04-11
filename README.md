@@ -11,7 +11,7 @@ Sovellus on web-sivusto, josta muusikot näkevät keskitetysti kiertueen keikat 
 
 | Username | Password |
 | -------- | -------- |
-| hello    | world    |
+| admin    | admin    |
 | user     | user     |
  
 
