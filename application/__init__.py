@@ -25,7 +25,7 @@ app.config["SECRET_KEY"] = urandom(32)
 
 from flask_login import LoginManager, current_user
 login_manager = LoginManager()
-login_manager.setup_app(app) #init_app to setup_app
+login_manager.init_app(app) #init_app to setup_app
 
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Please login to use this functionality."
