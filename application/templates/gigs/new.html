@@ -93,10 +93,18 @@
     
     
       <td colspan="2">
-        <input type="submit" value="Lisää uusi keikka" />
+        <input type="submit" class="btn btn-primary" value="Lisää uusi keikka" />
       </td>
+      
+        
+      
     </tr>
+    
 
 </form>
+
 </table>
+<form method="GET" action="{{ url_for('gigs_index') }}">
+    <input type="submit" class="btn btn-secondary btn-sm" value="back to gigs" />
+  </form>
 {% endblock %}

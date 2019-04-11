@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User
 from application.gigs.models import Gig
 from application.auth.forms import LoginForm, RegistrationForm, ProfileForm
@@ -25,7 +25,6 @@ def auth_login():
     return redirect(url_for("index"))    
 
 @app.route("/auth/logout")
-
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))    
@@ -42,13 +41,14 @@ def auth_register():
         return render_template("auth/registrationform.html", form = form)
 
     u = User(form.name.data, form.username.data, form.password.data)
-
+    u.role_id = 1
     db.session().add(u)
     db.session().commit()
 
     return redirect(url_for("auth_login"))
 
 @app.route("/auth/profile/", methods=["GET"])
+@login_required()
 def auth_profile_view():
     idnum = current_user.id
     form = ProfileForm(request.form)
@@ -59,6 +59,7 @@ def auth_profile_view():
 
 
 @app.route("/auth/profile/edit/", methods=["GET","POST"])
+@login_required()
 def auth_profile_edit():
     if request.method == "GET":
         profile = User.query.get(current_user.id)

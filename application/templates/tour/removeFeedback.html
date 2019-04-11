@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<p>Tour: '{{ tour.name }}' and all related gigs deleted</p>
+
+<form method="GET" action="{{ url_for('tour_index') }}">
+        <input type="submit" class="btn btn-primary" value=" back to tour index "/>
+    </form>
+{% endblock %}

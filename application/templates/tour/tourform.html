@@ -5,17 +5,23 @@
 {% if tours|length %}
 <table>
     <tr>
-        <th>Tour name</th>
+        <th width=20%>Tour name</th>
         <th>Start</th>
         <th>End</th>
         <th>Shows</th>
+        <th></th>
     </tr>
     {% for tour in tours %}
     <tr>
         <td>{{ tour.name }}</td>
-        <td>{{ tour.start_date }}</td>
-        <td>klo {{ tour.end_date }}</td>
+        <td>{{ tour.start_date.strftime('%Y-%m-%d') }}</td>
+        <td>{{ tour.end_date.strftime('%Y-%m-%d') }}</td>
         <td>{{ tour_gigs(tour.id)}}</td>
+        <td>
+            <form method="GET" action="{{ url_for('tour_view', tour_id=tour.id) }}">
+                <input type="submit" class="btn btn-primary" value="View" />
+            </form>
+        </td>
     </tr>
     {% endfor %}
 </table>
@@ -23,5 +29,9 @@
 <p>You don't have any tours</p>
 
 {% endif %}
+
+<form method="GET" action="{{ url_for('tour_form') }}">
+    <input type="submit" class="btn btn-primary" value="Create new tour!" />
+</form>
 
 {% endblock %}

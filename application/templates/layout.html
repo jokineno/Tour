@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+ 
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <a class="navbar-brand" href="{{ url_for('index') }}">The Tour</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -46,12 +46,35 @@
       </div>
     </div>
   </nav>
+  
+  {% if current_user.is_authenticated %}
+  <div>ROLE NAME:  ON : {{ current_user.role.name }}</div>
+  <div>USER NAME:   : {{ current_user.name}}</div>
+  {% if current_user.role.name == 'ADMIN' %}
+  JEEEJEE
+  {% endif %}
+  {% endif %}
 
-  {% block body %}
-  <p>
-    Content.
-  </p>
-  {% endblock %}
+  <a name="page-content"></a>
+  <main role="main" class="container">
+    {% block body %}
+    <p>
+      Content.
+    </p>
+
+
+    {% endblock %}
+
+  </main>
+
+  <footer class="footer mt-auto">
+      <div class="container">
+        <blockquote class="text-muted mb-0 text-center">
+          <strong>The tour</strong> - tour management system for live productions. 
+        </blockquote>
+      </div>
+    </footer>
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Tour '{{ tour.name }}' details</h1>
+
+
+
+<table class="no name yet">
+    <tr>
+        <thead class="no name">
+            <th>Name</th>
+            <th>Start_date</th>
+            <th>End_date</th>
+
+
+        </thead>
+    </tr>
+    <tr>
+        <td>{{ tour.name }}</td>
+        <td>{{ tour.start_date.strftime('%Y-%m-%d') }}</td>
+        <td>{{ tour.end_date.strftime('%Y-%m-%d') }}</td>
+
+
+    </tr>
+</table>
+
+<div>
+    <h2>Concerts</h2>
+</div>
+<table class="no name yet">
+    <tr>
+        <thead class="no name">
+            <th>Date</th>
+            <th>City</th>
+            <th>Venue</th>
+            <th>Showtime</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+
+        </thead>
+    </tr>
+
+    {% for gig in gigs %}
+    <tr>
+        <td>{{ gig.pvm.strftime('%Y-%m-%d') }}</td>
+        <td>{{ gig.name }}</td>
+        <td>{{ gig.place }}</td>
+        <td>{{ gig.showtime.strftime('%H:%M') }}</td>
+        <td>{{ gig.status }}</td>
+        <td>
+            <form method="GET" action="{{ url_for('gigs_edit', gig_id=gig.id) }}">
+                <input type="submit" class="btn btn-primary" value=" edit " />
+            </form>
+        </td>
+        <td>
+            <form method="POST" action="{{ url_for('gigs_remove_2', gig_id=gig.id) }}">
+                <input type="submit" class="btn btn-danger" value=" delete " />
+            </form>
+        </td>
+
+    </tr>
+
+    {% endfor %}
+</table>
+<br>
+<form method="POST" action="{{ url_for('tour_remove', tour_id=tour.id) }}">
+    <input type="submit" class="btn btn-danger" value="DELETE TOUR and GIGS! " />
+</form>
+<br>
+<form method="GET" action="{{ url_for('tour_index') }}">
+    <input type="submit" class="btn btn-secondary" value="Back to Tours! " />
+</form>
+
+
+{% endblock %}

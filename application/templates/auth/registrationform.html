@@ -13,7 +13,7 @@
         {{ form.password.label }}
         {{ form.password(class="form-control") }}
     </div>
-    <button type="submit" class="btn btn-black">Register</button>
+    <button type="submit" class="btn btn-primary">Register</button>
     {% for error in form.username.errors %}
     <div class="alert alert-warning mt-3">
         {{ error }}

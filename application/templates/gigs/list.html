@@ -53,12 +53,12 @@
    
     <td>
       <form method="POST" action="{{ url_for('gigs_change_status', gig_id=gig.id) }}">
-        <input type="submit" value="Muuta status!" />
+        <input type="submit" class="btn btn-secondary" value="Muuta status!" />
       </form>
     </td>
     <td>
         <form method="GET" action="{{ url_for('gigs_view', gig_id=gig.id) }}">
-          <input type="submit" value="View!" />
+          <input type="submit" class="btn btn-primary" value="View!" />
         </form>
       </td>
     

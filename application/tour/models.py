@@ -7,12 +7,6 @@ class Tour(db.Model):
     name = db.Column(db.String(144), nullable=False)
     start_date = db.Column(db.DateTime(), nullable=False)
     end_date = db.Column(db.DateTime(), nullable=False)
-    #date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    #date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-
-   # account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
-    #                       nullable=False)
-    # Vieraana avaimena keikat, jotka liittyvät tähän kiertueeseen. Samoin jäsenet, jotka liittyvät tähän kiertueeseen
     
     gigs = db.relationship("Gig", backref='tour', lazy=True)
     

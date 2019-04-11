@@ -1,21 +1,22 @@
-from application import app, db
+from application import app, db, login_required
+
 from flask import redirect, render_template, request, url_for
 from application.gigs.models import Gig
 from application.gigs.forms import GigForm
 from application.tour.models import Tour
-from flask_login import login_required, current_user
+from flask_login import current_user
 from sqlalchemy import desc, asc
-from time import strftime
+
 
 
 
 @app.route("/gigs/",methods=["GET"])
-@login_required
+@login_required()
 def gigs_index():
     return render_template("gigs/list.html", gigs=current_user.gigs, tourName = Tour.get_tourName_by_id)
 
 @app.route("/gigs/new/", methods=["GET","POST"])
-@login_required
+@login_required()
 def gigs_form():
     form = GigForm(request.form)
     tours = [(g.id, g.name) for g in Tour.query.order_by('name')]
@@ -28,7 +29,7 @@ def gigs_form():
     
 
 @app.route("/gigs/<gig_id>/", methods=["POST"])
-@login_required
+@login_required()
 def gigs_change_status(gig_id):
 
     t = Gig.query.get(gig_id)
@@ -45,16 +46,26 @@ def gigs_change_status(gig_id):
     return redirect(url_for("gigs_index"))
 
 @app.route("/gigs/delete/<gig_id>/", methods=["GET","POST"])
-@login_required
+@login_required()
 def gigs_remove(gig_id):
+    
     t = Gig.query.get(gig_id)
     db.session().delete(t)
     db.session().commit()
 
     return redirect(url_for("gigs_index"))
 
+@app.route("/tour/delete/<gig_id>/", methods=["GET","POST"])
+@login_required()
+def gigs_remove_2(gig_id):
+    t = Gig.query.get(gig_id)
+    db.session().delete(t)
+    db.session().commit()
+    
+    return redirect(url_for("tour_index"))
+
 @app.route("/gigs/", methods=["POST"])
-@login_required
+@login_required()
 def gigs_create():
     
     form = GigForm(request.form)  
@@ -84,11 +95,13 @@ def gigs_create():
 
 
 @app.route("/gigs/view/<gig_id>/", methods=["GET"])
+@login_required()
 def gigs_view(gig_id):
     form = GigForm(request.form)
     return render_template("gigs/single.html", gig = Gig.query.get(gig_id), form=form)
 
 @app.route("/gigs/edit/<gig_id>/", methods=["GET","POST"])
+@login_required()
 def gigs_edit(gig_id):
     
     if request.method == "GET":
@@ -111,15 +124,25 @@ def gigs_edit(gig_id):
 
 
 @app.route("/gigs/search/", methods=["GET"])
+@login_required()
 def find_gigs():
-    return render_template("gigs/list.html", gigs=Gig.find_gigs(request.args.get("query")), tourName=Tour.get_tourName_by_id, formaatti = strftime)    
+    gigs = Gig.find_gigs(request.args.get("query"))
+    print("FIND GIGS:")
+    print(gigs)
+    for gig in gigs:
+        print(gig.name)
+        print("*****")
+    return render_template("gigs/list.html", gigs=Gig.find_gigs(request.args.get("query")), tourName=Tour.get_tourName_by_id)    
 
 
 @app.route("/gigs/asc_by_date/", methods=["GET"])
+@login_required()
 def list_by_date_asc():
+    
     return render_template("/gigs/list.html",gigs=Gig.query.order_by(asc(Gig.pvm)).all(), tourName=Tour.get_tourName_by_id)    
 
 @app.route("/gigs/desc_by_date/", methods=["GET"])
+@login_required()
 def list_by_date_desc():
     return render_template("/gigs/list.html", gigs=Gig.query.order_by(desc(Gig.pvm)).all(), tourName=Tour.get_tourName_by_id)    
 

@@ -17,6 +17,7 @@ class Gig(db.Model):
 
     tour_id = db.Column(db.Integer,db.ForeignKey('tour.id'),nullable=False)
 
+    
 
     def __init__(self, name, place, pvm, showtime):
         self.name = name
@@ -59,6 +60,9 @@ class Gig(db.Model):
     
     @staticmethod    
     def find_gigs(query):
+        #Note.query.filter(Note.message.like("%somestr%")).all()
+        #KOKEILE TÄTÄ
+    
         stmt = text("SELECT * FROM Tour"
                     " LEFT JOIN gig ON Tour.id = tour_id"
                     " WHERE (Tour.name || Gig.place || Gig.name) LIKE '%{0}%';".format(query))
@@ -71,3 +75,12 @@ class Gig(db.Model):
         return response
 
    
+    @staticmethod
+    def gigs_by_tour_id(tourid):
+        stmt = text("SELECT * FROM Gig WHERE tour_id = " + str(tourid) + ";")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append(row)
+
+        return response
