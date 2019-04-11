@@ -24,11 +24,19 @@
           <a class="nav-link" href="{{ url_for('tour_index') }}">Kiertueet</a></li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('gigs_form') }}">Lisää keikka</a></li>
+      {% if current_user.is_authenticated %}
+        {% if current_user.role.name == "ADMIN" %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user_list') }}">Käyttäjähallinta</a>
+          </li>
+        {% endif %}
+        {% endif %}
       </ul>
 
 
       <div class="form-inline mt-2 mt-md-0">
         {% if current_user.is_authenticated %}
+        
         <p>
           Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
           <a href="{{ url_for('auth_profile_view') }}">Omat tiedot</a>

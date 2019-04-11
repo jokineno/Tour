@@ -1,9 +1,10 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user
 
-from application import app, db, login_required
-from application.auth.models import User
+from application import app, db, login_required, login_manager
+from application.auth.models import User, Role
 from application.gigs.models import Gig
+
 from application.auth.forms import LoginForm, RegistrationForm, ProfileForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
@@ -81,3 +82,7 @@ def auth_profile_edit():
     return redirect(url_for("auth_profile_view"))
     
 
+@app.route("/auth/allusers/", methods=["GET"])
+@login_required(role="ADMIN")
+def user_list():
+    return render_template("auth/userlist.html")

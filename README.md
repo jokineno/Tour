@@ -2,9 +2,10 @@
 Sovellus on web-sivusto, josta muusikot näkevät keskitetysti kiertueen keikat ja keikkaan liittyviä tietoja. 
 
 
-
-
 [Linkki tuotannossa olevaan sovellukseen](https://tsoha-tour-demo.herokuapp.com)
+- Käytä mieluiten Google Chromea: Esimerkiksi safari ei tue kalenteri widgettejä. 
+
+
 ### Testitunnukset:
 #### Keikat listautuvat tunnuksen mukaan. Eli yksi käyttäjä näkee vaan häneen liittyvät keikkansa.  
 
