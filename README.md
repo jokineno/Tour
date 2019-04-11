@@ -19,3 +19,4 @@ Sovellus on web-sivusto, josta muusikot näkevät keskitetysti kiertueen keikat 
 ### Dokumentaatio
 - [Käyttäjätapauksia](https://github.com/jokineno/Tour/blob/master/documentation/kayttajatapaukset.md)
 - [Tietokantakaavio](https://github.com/jokineno/Tour/blob/master/documentation/tietokantakaavio.png)
+- [Asennusohje](https://github.com/jokineno/Tour/blob/master/documentation/installation_guide.md)

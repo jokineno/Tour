@@ -78,7 +78,7 @@ $ heroku create projekti
 ```
 $ git remote add heroku
 $ git add .
-$ git commit -m "heroku setup"
+$ git commit -m "viesti githubiin"
 $ git push heroku master
 ```
 
