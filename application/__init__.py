@@ -82,12 +82,14 @@ def load_user(user_id):
 
 
 try: 
+    db.drop_all()
     db.create_all()
 
     from application.auth.models import Role
     from application.tour.models import Tour
     from datetime import datetime
     role = Role.query.filter_by(name='USER').first()
+    
 
     if not role:
         role = Role('USER')
@@ -127,5 +129,10 @@ try:
         tour = Tour(name,start_date,end_date)
         db.session().add(tour)
         db.session().commit()
+        
+        tour.tours.append(admin)
+        tour.tours.append(userX)
+        db.session().commit()
+
 except:
     pass

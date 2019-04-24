@@ -1,7 +1,12 @@
 from application import db
+from application.tour import models
 from application.models import Base
 
 
+tours = db.Table('tours_users', 
+        db.Column('account_id', db.Integer,db.ForeignKey('account.id')),
+        db.Column('tour_id',db.Integer,db.ForeignKey('tour.id'))
+)
 class User(Base):
 
     __tablename__ = "account"
@@ -10,10 +15,10 @@ class User(Base):
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)    
     gigs = db.relationship("Gig",backref='account',lazy=True)
-
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=True)
     role = db.relationship("Role")
-
+    tours = db.relationship('Tour',secondary=tours, backref=db.backref('tours',lazy=True))
+   
     
 
     def __init__(self, name, username, password):

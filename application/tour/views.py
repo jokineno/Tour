@@ -9,7 +9,7 @@ from flask_login import current_user
 @app.route("/tours/", methods=["GET"])
 @login_required()
 def tour_index():
-    alltours= Tour.query.all()
+    alltours= current_user.tours
 
     return render_template("tour/tourform.html", tours=alltours, tour_gigs = Tour.get_gig_amount_by_id)
 
