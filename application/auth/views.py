@@ -103,10 +103,10 @@ def users_remove(user_id):
 def user_change_role(user_id):
 
     u = User.query.get(user_id)
-    if u.role_id==1:
+    if u.role_id == 1:
         u.role_id = 2
         db.session().commit()
-    elif u.role_id== 2: 
+    elif u.role_id == 2: 
         u.role_id=1
         db.session().commit()
     

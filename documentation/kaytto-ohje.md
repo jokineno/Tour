@@ -15,5 +15,4 @@
 
 ### Vielä tekemättä
 - Nyt yksi keikka liittyy yhteen henkilöön -> yhden keikan tulisi liittyä useampaan henkilöön, kuten kiertueenkin. 
-- Adminin tulisi nähdä lista käyttäjistä. Hän voi muuttaa heidän käyttäjäroolin. Hän voi myös nähdä heihin liittyviä keikkoja ja kiertueita. 
-- Admin voi poistaa käyttäjän rekisteristä. 
+- Admin voi muuttaa heidän käyttäjäroolin. Hän voi myös nähdä heihin liittyviä keikkoja ja kiertueita. 

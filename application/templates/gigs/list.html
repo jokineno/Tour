@@ -4,7 +4,8 @@
 
 <form method="GET" action="{{ url_for('find_gigs') }}">
   <div class="input-group mb-3">
-    <input name="query" type="text" class="form-control" placeholder="Search by: 'tour name' or 'city' " aria-label="Haku" aria-describedby="button-addon2">
+    <input name="query" type="text" class="form-control" placeholder="Search by: 'tour name' or 'city' " aria-label="Haku"
+      aria-describedby="button-addon2">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
     </div>
@@ -12,56 +13,62 @@
 </form>
 
 
-  <div class="dropdown">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Order by
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <form method="GET" action="{{ url_for('list_by_date_asc') }}">
-            <input class="dropdown-item" type="submit" value="By date: Ascending" />
-        </form>
-        <form method="GET" action="{{ url_for('list_by_date_desc') }}">
-            <input class="dropdown-item" type="submit" value="By date: Descending" />
-        </form>
-    </div>
+<div class="dropdown">
+  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    Order by
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <form method="GET" action="{{ url_for('list_by_date_asc') }}">
+      <input class="dropdown-item" type="submit" value="By date: Ascending" />
+    </form>
+    <form method="GET" action="{{ url_for('list_by_date_desc') }}">
+      <input class="dropdown-item" type="submit" value="By date: Descending" />
+    </form>
   </div>
+</div>
 
-  
+
 
 <table>
   <tr>
+    {% if current_user.role.name=="ADMIN" %}
     <th>Poista</th>
+    {% endif %}
     <th>Pvm</th>
     <th>Keikka</th>
     <th>Paikka</th>
     <th>Showtime</th>
     <th>Tila</th>
     <th>Kiertue</th>
-    
+
   </tr>
   {% for gig in gigs %}
-  
+
   <tr>
-    <td><a href="{{ url_for('gigs_remove', gig_id=gig.id) }}">X</a></td>
+    {% if current_user.role.name=="ADMIN" %}
+   
+
+    <td><form method="POST" action="{{ url_for('gigs_remove', gig_id=gig.id) }}"><button  type="submit" class="btn btn-danger">Delete</button></form></td>
+    {% endif %}
     <td>{{ gig.pvm }}</td>
     <td>{{ gig.name }}</td>
     <td>{{ gig.place }}</td>
     <td>{{ gig.showtime }}</td>
     <td>{{ gig.status }}</td>
     <td>{{ tourName(gig.tour_id) }}</td>
-   
+
     <td>
       <form method="POST" action="{{ url_for('gigs_change_status', gig_id=gig.id) }}">
         <input type="submit" class="btn btn-secondary" value="Muuta status!" />
       </form>
     </td>
     <td>
-        <form method="GET" action="{{ url_for('gigs_view', gig_id=gig.id) }}">
-          <input type="submit" class="btn btn-primary" value="View!" />
-        </form>
-      </td>
-    
+      <form method="GET" action="{{ url_for('gigs_view', gig_id=gig.id) }}">
+        <input type="submit" class="btn btn-primary" value="View!" />
+      </form>
+    </td>
+
   </tr>
   {% endfor %}
 </table>

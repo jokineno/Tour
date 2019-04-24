@@ -12,12 +12,13 @@ Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
 
 #### Peruskäyttäjä voi:
 - Tarkastella keikkoja
-- Lisätä vieraita keikan vieraslistaan
+- Muuttaa omia tietojaan, mutta ei käyttäjäroolia
 
 #### Admin voi:
 - Lisätä, poistaa, muokata konsertteja ja niihin liittyviä yksityiskohtia.
 - Listata käyttäjiä (saada mahdollisesti raportteja heistä: esim soitettujen keikkojen määrä tms statistiikkaa)
 - Muokata käyttäjien oikeuksia
+- Nähdä kaikki käyttäjät
 
 ### Toiminnallisuus
 - Kirjautuminen ja uloskirjautuminen: peruskäyttäjä tai admin.
