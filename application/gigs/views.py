@@ -2,6 +2,7 @@ from application import app, db, login_required
 
 from flask import redirect, render_template, request, url_for
 from application.gigs.models import Gig
+from application.auth.models import User
 from application.gigs.forms import GigForm
 from application.tour.models import Tour
 from flask_login import current_user
@@ -19,10 +20,10 @@ def gigs_index():
 @login_required()
 def gigs_form():
     form = GigForm(request.form)
-    tours = [(g.id, g.name) for g in Tour.query.order_by('name')]
-    print(tours)
+    tours = [(g.id, g.name) for g in current_user.tours]#[(g.id, g.name) for g in Tour.query.order_by('name')]
     
     form.tour_id.choices = tours
+   
     
     return render_template("gigs/new.html", form=form)
     
@@ -76,10 +77,6 @@ def gigs_create():
         t.status = form.status.data
         t.account_id = current_user.id
         t.tour_id = form.tour_id.data
-        
-        print("TIEDOT: ")
-        print(type(t.tour_id)) #int koska coerce = int
-        print(t.tour_id) #2
     
         db.session().add(t)
         db.session().commit() 

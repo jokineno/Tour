@@ -2,6 +2,7 @@ from application import app, db, login_required
 from flask import redirect, render_template, request, url_for
 from application.tour.models import Tour
 from application.gigs.models import Gig
+from application.auth.models import User
 from application.tour.forms import TourForm
 from flask_login import current_user
 
@@ -17,7 +18,8 @@ def tour_index():
 @login_required()
 def tour_form():
     form = TourForm()
-    return render_template("tour/newtourform.html", form=form)
+    users = User.query.all()
+    return render_template("tour/newtourform.html",users=users, form=form)
 
 @app.route("/tours/", methods=["POST"])
 @login_required()
@@ -30,6 +32,13 @@ def tour_create():
     
     db.session().add(tour)
     db.session().commit()
+
+    selected_users = request.form.getlist("hello")
+    for user in selected_users:
+        selected = User.query.get(user)
+        tour.tours.append(selected)
+        db.session().commit()
+    
         
     return redirect(url_for('tour_index'))
 

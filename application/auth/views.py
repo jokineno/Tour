@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, current_user
 from application import app, db, login_required, login_manager
 from application.auth.models import User, Role
 from application.gigs.models import Gig
+from application.tour.models import Tour
 
 from application.auth.forms import LoginForm, RegistrationForm, ProfileForm
 
@@ -46,7 +47,9 @@ def auth_register():
     db.session().add(u)
     db.session().commit()
 
-    
+    tour = Tour.query.get(1)
+    u.tours.append(tour)
+    db.session().commit()
 
     return redirect(url_for("auth_login"))
 

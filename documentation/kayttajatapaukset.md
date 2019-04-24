@@ -1,9 +1,10 @@
 
 ### Käyttötapauksia
-1. Muusikko on lähdössä keikalle. Edellisenä iltana hän avaa sovelluksen ja katsoo keikkapäivän aikataulut ja speksit: mistä on lähtö, kuinka kauan matka kestää, monelta on load-in, soundcheck, showtime sekä miten ruokailu on järjestetty. 
-2. Muusikko katsoo alkuvuodesta, että millainen kiertue on tulossa. Hän avaa pääsivun ja tarkastelee keikkoja sieltä. Hän voi myös valita vain tietyn artistin keikat, jos hän soittaa useammassa bändissä. 
-3. Admin voi poistaa vääriä keikkoja ja tulevaisuudessa myös muokata keikan tietoja - esimerkiksi vaihtunutta showtimea. 
-4. Uusi kiertue on alkamassa ja kaikki crewin ja bändin jäsenet haluaisivat keikkojen tarkat tiedot etukäteen. Admin voi lisätä kiertueen tiedot ja liittää soittajat kiertueeseen, jonka jälkeen he pystyvät tarkastelemaan koko kiertuetta keskitetysti.
+
+1. Muusikko on lähdössä keikalle. Edellisenä iltana hän avaa sovelluksen ja katsoo keikkapäivän aikataulut ja speksit: mistä on lähtö, kuinka kauan matka kestää, monelta on load-in, soundcheck, showtime sekä miten ruokailu on järjestetty. (osittain toteutettu, lisätietolaatikko pitänee lisätä)
+2. Muusikko katsoo alkuvuodesta, että millainen kiertue on tulossa. Hän avaa pääsivun ja tarkastelee keikkoja sieltä. Hän voi myös valita vain tietyn artistin keikat, jos hän soittaa useammassa bändissä (filteröinti toimii, paikan tai kiertueen nimen mukaan). 
+3. Admin voi poistaa vääriä keikkoja ja tulevaisuudessa myös muokata keikan tietoja - esimerkiksi vaihtunutta showtimea (toimii). 
+4. Uusi kiertue on alkamassa ja kaikki crewin ja bändin jäsenet haluaisivat keikkojen tarkat tiedot etukäteen. Admin voi lisätä kiertueen tiedot ja liittää soittajat kiertueeseen, jonka jälkeen he pystyvät tarkastelemaan koko kiertuetta keskitetysti (soittajat - kiertue on monesta moneen -suhde).
 5. Uusi käyttäjä haluaa luoda tunnukset. Hän painaa 'rekisteröidy' ja syöttää tunnukset. Lomakkeen kentät on validoitu. Rekisteröitymisen onnistuttua käyttäjälle luodaan automaattisesti "muut -kiertue". 
 
 
@@ -12,7 +13,7 @@ Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
 - Peruskäyttäjä ja Admin.
 
 #### Peruskäyttäjä voi:
-- Tarkastella keikkoja
+- Tarkastella keikkoja ja niihin liittyviä tietoja.
 - Muuttaa omia tietojaan, mutta ei käyttäjäroolia
 
 #### Admin voi:

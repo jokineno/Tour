@@ -6,10 +6,27 @@
   <title>The Tour</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
+   
 </head>
 
 <body>
- 
+  <style>
+    #loginname {
+      color:antiquewhite;
+    }
+    footer {
+    position: fixed;
+    height: 50px;
+    background-color:lightgrey;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+
+    }
+    
+  </style>
+  
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <a class="navbar-brand" href="{{ url_for('index') }}">The Tour</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -34,10 +51,10 @@
       </ul>
 
 
-      <div class="form-inline mt-2 mt-md-0">
+      <div class="form-inline mt-2 mt-md-4">
         {% if current_user.is_authenticated %}
         
-        <p>
+        <p id="loginname">
           Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
           <a href="{{ url_for('auth_profile_view') }}">Omat tiedot</a>
         </p>
@@ -77,11 +94,9 @@
 
   </main>
 
-  <footer class="footer mt-auto">
+  <footer class="footer">
       <div class="container">
-        <blockquote class="text-muted mb-0 text-center">
-          <strong>The tour</strong> - tour management system for live productions. 
-        </blockquote>
+        <span class="text-muted">The Tour - tour managing system for live productions.</span>
       </div>
     </footer>
 
