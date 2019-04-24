@@ -37,7 +37,6 @@ def tour_create():
 @login_required()
 def tour_view(tour_id):
     form=TourForm(request.form)
-    #gigs = Gig.gigs_by_tour_id(tour_id)
     gigs = Gig.query.filter(Gig.tour_id == tour_id)
     return render_template("tour/single.html",gigs=gigs, tour = Tour.query.get(tour_id), form=form)
 
@@ -45,6 +44,8 @@ def tour_view(tour_id):
 @login_required()
 def tour_remove(tour_id):
     #jos kiertue poistetaan, niin silloin pitää kadota kaikki siihen liittyvät keikat. 
+    if(tour_id == 1):
+        return redirect('tour_index')
     tour = Tour.query.get(tour_id)
     gigs = Gig.query.filter(Gig.tour_id == tour_id)
     

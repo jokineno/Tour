@@ -64,9 +64,11 @@
     {% endfor %}
 </table>
 <br>
+{% if tour.id != 1 %}
 <form method="POST" action="{{ url_for('tour_remove', tour_id=tour.id) }}">
     <input type="submit" class="btn btn-danger" value="DELETE TOUR and GIGS! " />
 </form>
+{% endif %}
 <br>
 <form method="GET" action="{{ url_for('tour_index') }}">
     <input type="submit" class="btn btn-secondary" value="Back to Tours! " />

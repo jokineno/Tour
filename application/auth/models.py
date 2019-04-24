@@ -18,7 +18,7 @@ class User(Base):
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=True)
     role = db.relationship("Role")
     tours = db.relationship('Tour',secondary=tours, backref=db.backref('tours',lazy=True))
-   
+    
     
 
     def __init__(self, name, username, password):

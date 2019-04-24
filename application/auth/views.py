@@ -46,6 +46,8 @@ def auth_register():
     db.session().add(u)
     db.session().commit()
 
+    
+
     return redirect(url_for("auth_login"))
 
 @app.route("/auth/profile/", methods=["GET"])

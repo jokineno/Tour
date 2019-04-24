@@ -4,6 +4,7 @@
 2. Muusikko katsoo alkuvuodesta, että millainen kiertue on tulossa. Hän avaa pääsivun ja tarkastelee keikkoja sieltä. Hän voi myös valita vain tietyn artistin keikat, jos hän soittaa useammassa bändissä. 
 3. Admin voi poistaa vääriä keikkoja ja tulevaisuudessa myös muokata keikan tietoja - esimerkiksi vaihtunutta showtimea. 
 4. Uusi kiertue on alkamassa ja kaikki crewin ja bändin jäsenet haluaisivat keikkojen tarkat tiedot etukäteen. Admin voi lisätä kiertueen tiedot ja liittää soittajat kiertueeseen, jonka jälkeen he pystyvät tarkastelemaan koko kiertuetta keskitetysti.
+5. Uusi käyttäjä haluaa luoda tunnukset. Hän painaa 'rekisteröidy' ja syöttää tunnukset. Lomakkeen kentät on validoitu. Rekisteröitymisen onnistuttua käyttäjälle luodaan automaattisesti "muut -kiertue". 
 
 
 ### Käyttäjät
