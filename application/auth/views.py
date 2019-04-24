@@ -85,4 +85,30 @@ def auth_profile_edit():
 @app.route("/auth/allusers/", methods=["GET"])
 @login_required(role="ADMIN")
 def user_list():
-    return render_template("auth/userlist.html")
+    return render_template("auth/userlist.html", users=User.query.all())
+
+@app.route("/users/delete/<user_id>/", methods=["GET","POST"])
+@login_required(role="ADMIN")
+def users_remove(user_id):
+    
+    u = User.query.get(user_id)
+    db.session().delete(u)
+    db.session().commit()
+
+    return redirect(url_for("user_list"))
+
+
+@app.route("/auth/allusers/changestatus/<user_id>/", methods=["POST"])
+@login_required(role="ADMIN")
+def user_change_role(user_id):
+
+    u = User.query.get(user_id)
+    if u.role_id==1:
+        u.role_id = 2
+        db.session().commit()
+    elif u.role_id== 2: 
+        u.role_id=1
+        db.session().commit()
+    
+
+    return redirect(url_for("user_list"))
