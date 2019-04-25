@@ -34,6 +34,7 @@ def tour_create():
     db.session().commit()
 
     selected_users = request.form.getlist("hello")
+    
     for user in selected_users:
         selected = User.query.get(user)
         tour.tours.append(selected)
