@@ -9,10 +9,10 @@
 - Käyttäjäroolisi on automaattisesti "user"
 
 - Voit tarkastella keikkoja, kiertueita ja niihin liittyviä yksityiskohtia. 
-- Voit myös lisätä uuden kiertueen tai uuden keikan. 
+- Voit myös lisätä uuden kiertueen tai uuden keikan. Tämän voi tehdä vain admin. 
 - Jos haluat lisätä keikan, joka kuuluu tiettyyn kiertueeseen, niin luo ensiksi kiertue -> Keikkaa ei voi lisätä kiertueeseen, jota ei ole vielä luotu. 
-
+- Kiertuetta lisätessäsi voit liittää keikkaan eri käyttäjiä. Tavallisesti samaan kiertueeseen kuuluu useita eri henkilöitä. Toisaalta usealla eri henkilöllä voi olla useampi kiertue kalenterissa. 
 
 ### Vielä tekemättä
-- Nyt yksi keikka liittyy yhteen henkilöön -> yhden keikan tulisi liittyä useampaan henkilöön, kuten kiertueenkin. 
-- Admin voi muuttaa heidän käyttäjäroolin. Hän voi myös nähdä heihin liittyviä keikkoja ja kiertueita. 
+- Keikan liittäminen useaan käyttäjään
+- 
