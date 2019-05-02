@@ -90,15 +90,20 @@ def auth_profile_edit():
 
 @app.route("/auth/allusers/", methods=["GET"])
 @login_required(role="ADMIN")
-def user_list():
-    
+def user_list():    
+    return render_template("auth/userlist.html", users=User.query.all())
+
+@app.route("/auth/admin/", methods=["GET"])
+@login_required(role="ADMIN")
+def admin():
+    return render_template("auth/admin.html")
+
+@app.route("/auth/admin/tours", methods=["GET"])
+@login_required(role="ADMIN")
+def tour_info():
     gigsByTour = Tour.get_gig_amounts_by_tour()
-    print("***********")
-    for gig in gigsByTour:
-        print(gig[0])
-        print(gig[1])
-    print("***********")
-    return render_template("auth/userlist.html", users=User.query.all(), gigsbytour = gigsByTour )
+    usersByTour = Tour.users_and_tour_amounts()
+    return render_template("auth/tourinfo.html",gigsbytour = gigsByTour, usersbytours = usersByTour)
 
 @app.route("/users/delete/<user_id>/", methods=["GET","POST"])
 @login_required(role="ADMIN")

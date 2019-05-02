@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Tours by gig amounts</h1>
+<p>If tour hasn't any gigs it won't displayed below</p>
+
+<table class="table order-list">
+  <thead>
+    <tr>
+      <td>Tour name</td>
+      <td>Gigs qty</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for tour in gigsbytour %}
+    <tr>
+      <td>{{tour[0]}}</td>
+      <td>{{tour[1]}}</td>
+    </tr>
+    
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<h1>Users by tour amounts</h1>
+<p>Stats show how many tours each user has. </p>
+<table class="table order-list">
+    <thead>
+      <tr>
+        <td>User name</td>
+        <td>Tour qty</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in usersbytours %}
+      <tr>
+        <td>{{user[0]}}</td>
+        <td>{{user[1]}}</td>
+      </tr>
+      
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+<br>
+<br>
+{% endblock %}

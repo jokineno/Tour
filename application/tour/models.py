@@ -60,3 +60,15 @@ class Tour(db.Model):
             response.append(row)
         
         return response
+
+    
+    @staticmethod
+    def users_and_tour_amounts():
+        stmt = text("SELECT account.name, count(*) FROM tours_users INNER JOIN account ON tours_users.account_id = account.id GROUP BY account.name;")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row)
+        
+        return response

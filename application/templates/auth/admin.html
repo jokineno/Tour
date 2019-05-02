@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h1>Admin area</h1>
+<p>You can administer user rights and see different statistics</p>
+<ul>
+<li><a class="nav-link" href="{{ url_for('user_list') }}">Delete users and change rights</a></li>
+<li><a class="nav-link" href="{{ url_for('tour_info') }}">Tour stats</a></li>
+</ul>
+
+{% endblock %}
