@@ -8,11 +8,6 @@ tours = db.Table('tours_users',
         db.Column('tour_id',db.Integer,db.ForeignKey('tour.id'))
 )
 
-
-#allgigs = db.Table('gigs_users',
-#        db.Columns('account_id',db.Integer,db.ForeignKey('account.id')),
-#        db.Column('gig_id',db.Integer,db.ForeignKey('gig.id'))
-#)
 class User(Base):
 
     __tablename__ = "account"
@@ -24,7 +19,7 @@ class User(Base):
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=True)
     role = db.relationship("Role")
     tours = db.relationship('Tour',secondary=tours, backref=db.backref('tours',lazy=True))
-    #gigs = db.relationship("Gig",secondary=gigs backref=db.backref('gigs'),lazy=True)
+   
     
 
     def __init__(self, name, username, password):

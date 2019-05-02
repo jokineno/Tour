@@ -9,7 +9,7 @@ class Gig(db.Model):
     pvm = db.Column(db.DateTime(), nullable=False)
     showtime = db.Column(db.Time(), nullable=False)
     status = db.Column(db.String(144), nullable=False)
-
+ 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
     
@@ -65,3 +65,5 @@ class Gig(db.Model):
 
         return response[0]    
 
+
+    

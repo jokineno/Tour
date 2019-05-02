@@ -1,32 +1,58 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <h1>All users</h1>
-  <table class="table order-list">
-    <thead>
-      <tr>
-        <td>Remove</td>
-        <td>Name</td>
-        <td>Username</td>
-        <td>Role</td>
-        <td>Change role</td>
-      </tr>
-    </thead>
-    <tbody>
-      
-      {% for user in users %}
-      <tr>
-        <td><a href="{{ url_for('users_remove', user_id=user.id) }}">X</a></td>
-        <td>{{user.name}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.role}}</td>
-        <form method="POST" action="{{ url_for('user_change_role', user_id=user.id)}}">
-        <td><button type="submit" class="btn btn-info">Change Role</button></td></form>
-      </tr>
-      {% endfor %}
-      
+<h1>User management</h1>
+<table class="table order-list">
+  <thead>
+    <tr>
+      <td>Remove</td>
+      <td>Name</td>
+      <td>Username</td>
+      <td>Role</td>
+      <td>Change role</td>
+    </tr>
+  </thead>
+  <tbody>
 
-    </tbody>
+    {% for user in users %}
+    <tr>
+      <td><a href="{{ url_for('users_remove', user_id=user.id) }}">X</a></td>
+      <td>{{user.name}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.role}}</td>
+      <form method="POST" action="{{ url_for('user_change_role', user_id=user.id)}}">
+        <td><button type="submit" class="btn btn-info">Change Role</button></td>
+      </form>
+    </tr>
+    {% endfor %}
 
-  </table>
+
+  </tbody>
+
+</table>
+
+<h1>Tour info</h1>
+
+<table class="table order-list">
+  <thead>
+    <tr>
+      <td>Tour name</td>
+      <td>Gigs qty</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for tour in gigsbytour %}
+    
+
+    <tr>
+      <td>{{tour[0]}}</td>
+      <td>{{tour[1]}}</td>
+    </tr>
+    
+    {% endfor %}
+  </tbody>
+</table>
+<br>
+<br>
+
 {% endblock %}

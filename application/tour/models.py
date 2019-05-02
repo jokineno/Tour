@@ -49,3 +49,14 @@ class Tour(db.Model):
             response.append(row[0])
 
         return response
+    
+    @staticmethod
+    def get_gig_amounts_by_tour():
+        stmt = text("SELECT tour.name, count(*) FROM Gig INNER JOIN tour ON Tour.id=gig.tour_id  GROUP BY tour.name;")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row)
+        
+        return response
