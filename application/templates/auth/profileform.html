@@ -7,10 +7,10 @@
 <table class="no name yet">
     <tr>
         <td>
-            {{ form.name.label}}
+            {{ form.name.label }}
         </td>
         <td>
-            {{ current.name }}
+            {{ current_user.name }}
         </td>
 
     </tr>
@@ -19,17 +19,9 @@
             Username:
         </td>
         <td>
-            {{ current.username }}
+            {{ current_user.username }}
         </td>
 
-    </tr>
-    <tr>
-        <td>
-            {{ form.role.label }}
-        </td>
-        <td>
-            {{ current.role }}
-        </td>
     </tr>
     <tr>
         <td>
@@ -62,9 +54,5 @@
 </form>
 
 
-
-
-<p>Täällä voisi olla soitetut keikat ja tulevat keikat siten, että kun keikka on merkitty menneeksi, niin keikkaan
-    liittyvien soittajien keikkamäärä nousee yhdellä</p>
 
 {% endblock %}

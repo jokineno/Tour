@@ -58,8 +58,10 @@
     </table>
     <input type="submit" class="btn btn-primary" value="OK" />
 </form>
+{% if current_user.role.name == "ADMIN" %}
 <form method="POST" action="{{ url_for('gigs_remove',gig_id=gig_id) }} ">
     <input type="submit" class="btn btn-primary" value="Delete" />
 </form>
+{% endif %}
 
 {% endblock %}

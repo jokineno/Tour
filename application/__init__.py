@@ -18,14 +18,14 @@ db = SQLAlchemy(app)
 
 
 
-# login
+
 
 from os import urandom
 app.config["SECRET_KEY"] = urandom(32)
 
 from flask_login import LoginManager, current_user
 login_manager = LoginManager()
-login_manager.setup_app(app) #init_app to setup_app
+login_manager.setup_app(app) 
 
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Please login to use this functionality."
@@ -82,9 +82,9 @@ def load_user(user_id):
 
 
 try: 
-    db.drop_all()
+    
     db.create_all()
-
+    
     from application.auth.models import Role
     from application.tour.models import Tour
     from datetime import datetime
@@ -105,7 +105,7 @@ try:
     
     admin = User.query.filter_by(role_id=2).first()
 
-    #luodaan admin käynnistettäessä ohjelma ekan kerran
+   
     if not admin:
         admin = User("ADMIN","admin","admin")
         admin.role_id = 2
@@ -114,16 +114,16 @@ try:
     
     userX = User.query.filter_by(role_id=1).first()
 
-    #luodaan admin käynnistettäessä ohjelma ekan kerran
+  
     if not userX:
         userX = User("USER","user","user")
         userX.role_id = 1
         db.session().add(userX)
         db.session().commit()
 
-    #luodaan "muut" -kiertue aluksi. 
+   
     if Tour.query.first() == None:
-        name = "Muut"
+        name = "Other"
         start_date = datetime.strptime("2000-01-01","%Y-%m-%d")
         end_date = datetime.strptime("2099-01-01","%Y-%m-%d")
         tour = Tour(name,start_date,end_date)

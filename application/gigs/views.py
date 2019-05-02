@@ -1,5 +1,5 @@
 from application import app, db, login_required
-
+from application.auth.models import User, Role
 from flask import redirect, render_template, request, url_for
 from application.gigs.models import Gig
 from application.auth.models import User
@@ -14,78 +14,79 @@ from sqlalchemy import desc, asc
 @app.route("/gigs/",methods=["GET"])
 @login_required()
 def gigs_index():
-    return render_template("gigs/list.html", gigs=current_user.gigs, tourName = Tour.get_tourName_by_id)
+    if current_user.role.name == "ADMIN":
+        return render_template("gigs/list.html", tours=Tour.query.all(), tourName = Tour.get_tourName_by_id)
+    else:
+        return render_template("gigs/list.html", tourName = Tour.get_tourName_by_id, tours=current_user.tours)
 
 @app.route("/gigs/new/", methods=["GET","POST"])
 @login_required()
-def gigs_form():
+def gigs_form(role="ADMIN"):
+
     form = GigForm(request.form)
-    tours = [(g.id, g.name) for g in current_user.tours]#[(g.id, g.name) for g in Tour.query.order_by('name')]
-    
+    tours = [(tour.id, tour.name) for tour in Tour.query.all()]#[(g.id, g.name) for g in Tour.query.order_by('name')]
     form.tour_id.choices = tours
-   
     
     return render_template("gigs/new.html", form=form)
     
     
 
 @app.route("/gigs/<gig_id>/", methods=["POST"])
-@login_required()
+@login_required(role="ADMIN")
 def gigs_change_status(gig_id):
 
-    t = Gig.query.get(gig_id)
-    if t.status=="Tulossa":
-        t.status = "Mennyt"
+    gig = Gig.query.get(gig_id)
+    if gig.status=="Upcoming":
+        gig.status = "Past"
         db.session().commit()
-    elif t.status== "Mennyt": 
-        t.status="Peruttu"
+    elif gig.status== "Past": 
+        gig.status="Cancelled"
         db.session().commit()
-    elif t.status=="Peruttu":
-        t.status="Tulossa"
+    elif gig.status=="Cancelled":
+        gig.status="Upcoming"
         db.session().commit()
   
     return redirect(url_for("gigs_index"))
 
 @app.route("/gigs/delete/<gig_id>/", methods=["GET","POST"])
-@login_required()
+@login_required(role="ADMIN")
 def gigs_remove(gig_id):
     
-    t = Gig.query.get(gig_id)
-    db.session().delete(t)
+    gig = Gig.query.get(gig_id)
+    db.session().delete(gig)
     db.session().commit()
 
     return redirect(url_for("gigs_index"))
 
 @app.route("/tour/delete/<gig_id>/", methods=["GET","POST"])
-@login_required()
+@login_required(role="ADMIN")
 def gigs_remove_2(gig_id):
-    t = Gig.query.get(gig_id)
-    db.session().delete(t)
+    gig = Gig.query.get(gig_id)
+    db.session().delete(gig)
     db.session().commit()
     
     return redirect(url_for("tour_index"))
 
 @app.route("/gigs/", methods=["POST"])
 @login_required()
-def gigs_create():
+def gigs_create(role="ADMIN"):
     
     form = GigForm(request.form)  
     #selvitä tämä mysteeri! 
     if not form.validate_on_submit():
-        print("ONNISTUI")
-        t = Gig(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
-        t.status = form.status.data
-        t.account_id = current_user.id
-        t.tour_id = form.tour_id.data
+        gig = Gig(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
+        gig.status = form.status.data
+        gig.account_id = current_user.id
+        gig.tour_id = form.tour_id.data
     
-        db.session().add(t)
+        db.session().add(gig)
         db.session().commit() 
 
         return redirect(url_for("gigs_index"))
     
     elif not form.validate():
         print("FORM EI VALIDOI")
-        tours = [(g.id, g.name) for g in Tour.query.order_by('name')]
+        tours = [(tour.id, tour.name) for tour in Tour.query.order_by('name')]
         form.tour_id.choices = tours
         print(tours)
         return render_template("gigs/new.html", form = form)
@@ -98,7 +99,7 @@ def gigs_view(gig_id):
     return render_template("gigs/single.html", gig = Gig.query.get(gig_id), form=form)
 
 @app.route("/gigs/edit/<gig_id>/", methods=["GET","POST"])
-@login_required()
+@login_required(role="ADMIN")
 def gigs_edit(gig_id):
     
     if request.method == "GET":
@@ -123,13 +124,19 @@ def gigs_edit(gig_id):
 @app.route("/gigs/search/", methods=["GET"])
 @login_required()
 def find_gigs():
-    gigs = Gig.find_gigs(request.args.get("query"))
-    print("FIND GIGS:")
-    print(gigs)
-    for gig in gigs:
-        print(gig.name)
-        print("*****")
-    return render_template("gigs/list.html", gigs=Gig.find_gigs(request.args.get("query")), tourName=Tour.get_tourName_by_id)    
+    args = "%" + request.args.get('query') + "%"
+
+    if current_user.role.name=="USER":
+        idx = Tour.get_index(current_user.id)
+        tours = Tour.query.filter(Tour.name.like(args),Tour.id.in_(idx))
+        return render_template("gigs/list.html", tours=tours, tourName=Tour.get_tourName_by_id) 
+
+    elif current_user.role.name=="ADMIN":
+        tours = Tour.query.filter(Tour.name.like(args))
+        return render_template("gigs/list.html", tours=tours, tourName=Tour.get_tourName_by_id)    
+   
+    
+
 
 
 @app.route("/gigs/asc_by_date/", methods=["GET"])

@@ -9,7 +9,7 @@ class GigForm(FlaskForm):
     place = StringField("City", [validators.InputRequired(),validators.Length(min=2, max=30, message="Must be within 2-30 characters")])
     pvm = DateField("Date",format='%Y-%m-%d')
     showtime = TimeField("Showtime:", format='%H:%M')
-    status = SelectField("Status", choices=[("Tulossa","Tulossa"),("Mennyt","Mennyt"),("Peruttu","Peruttu")], option_widget=None)
+    status = SelectField("Status", choices=[("Upcoming","Upcoming"),("Past","Past"),("Cancelled","Cancelled")], option_widget=None)
     tour_id = SelectField("Tour", choices=[], coerce=int)
     
     class Meta:

@@ -1,4 +1,5 @@
 from application import app, db, login_required
+from application.auth.models import User, Role
 from flask import redirect, render_template, request, url_for
 from application.tour.models import Tour
 from application.gigs.models import Gig
@@ -10,20 +11,24 @@ from flask_login import current_user
 @app.route("/tours/", methods=["GET"])
 @login_required()
 def tour_index():
-    alltours= current_user.tours
 
-    return render_template("tour/tourform.html", tours=alltours, tour_gigs = Tour.get_gig_amount_by_id)
+    if current_user.role.name=="ADMIN":
+        alltours= Tour.query.all()
+        return render_template("tour/tourform.html", tours=alltours, tour_gigs = Tour.get_gig_amount_by_id)
+    else:
+        alltours = current_user.tours
+        return render_template("tour/tourform.html", tours=alltours, tour_gigs = Tour.get_gig_amount_by_id)
 
 @app.route("/tours/new/", methods=["GET"])
 @login_required()
-def tour_form():
+def tour_form(role="ADMIN"):
     form = TourForm()
     users = User.query.all()
     return render_template("tour/newtourform.html",users=users, form=form)
 
 @app.route("/tours/", methods=["POST"])
 @login_required()
-def tour_create():
+def tour_create(role="ADMIN"):
     form = TourForm(request.form)
     tour = Tour(form.name.data, form.start_date.data,form.end_date.data)
     if not form.validate_on_submit:
@@ -43,7 +48,7 @@ def tour_create():
         
     return redirect(url_for('tour_index'))
 
-@app.route("/tours/view/<tour_id>/", methods=["GET"])
+@app.route("/tours/view/<tour_id>/", methods=["GET", "POST"])
 @login_required()
 def tour_view(tour_id):
     form=TourForm(request.form)
@@ -51,22 +56,28 @@ def tour_view(tour_id):
     return render_template("tour/single.html",gigs=gigs, tour = Tour.query.get(tour_id), form=form)
 
 @app.route("/tours/delete/<tour_id>/", methods=["GET","POST"])
-@login_required()
+@login_required(role="ADMIN")
 def tour_remove(tour_id):
-    #jos kiertue poistetaan, niin silloin pitää kadota kaikki siihen liittyvät keikat. 
+
     if(tour_id == 1):
         return redirect('tour_index')
-    tour = Tour.query.get(tour_id)
-    gigs = Gig.query.filter(Gig.tour_id == tour_id)
     
-    for gig in gigs: 
-        db.session().delete(gig)
+    if request.method=="POST":
+        tour = Tour.query.get(tour_id)
+        gigs = Gig.query.filter(Gig.tour_id == tour_id)
+    
+        for gig in gigs: 
+            db.session().delete(gig)
+            db.session().commit()
+    
+        db.session().delete(tour)
         db.session().commit()
+        return render_template("tour/removeFeedback.html", tour=tour)
+        
     
-    db.session().delete(tour)
-    db.session().commit()
 
-    
-    
-    return render_template("tour/removeFeedback.html", tour=tour)
+@app.route("/tours/delete/<tour_id>/confirm/", methods=["GET","POST"])
+@login_required(role="ADMIN")
+def are_you_sure(tour_id):
+    return render_template("tour/areyousure.html", tour=Tour.query.get(tour_id))
 

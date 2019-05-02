@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p>Are you sure you want to delete the tour '{{tour.name}}'? Deleting the tour all the gigs will be deleted from all the related
+    musicians.</p>
+
+<form method="POST" action="{{ url_for('tour_remove', tour_id=tour.id) }}">
+    <table>
+        <td style="padding:20px">
+            <input class="btn btn-danger" type="submit" value="Yes, Delete">
+        </td>
+</form>
+<form method="POST" action="{{ url_for('tour_view', tour_id=tour.id) }}">
+    <td style="padding:20px">
+        <input  class="btn btn-primary" type="submit" value="No, Get Back">
+    </td>
+</form>
+</table>
+
+{% endblock %}

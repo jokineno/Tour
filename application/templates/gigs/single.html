@@ -24,9 +24,11 @@
           <td>{{ gig.showtime.strftime('%H:%M') }}</td> 
           <td>{{ gig.status }}</td> 
           <td>
+              {% if current_user.role.name == "ADMIN" %}
             <form method="GET" action="{{ url_for('gigs_edit', gig_id=gig.id) }}">
                 <input type="submit" class="btn btn-primary" value=" edit "/>
             </form>
+            {% endif%}
           </td>
           <td>
               <form method="GET" action="{{ url_for('gigs_index') }}">

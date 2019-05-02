@@ -19,19 +19,9 @@ class Tour(db.Model):
         self.start_date = start_date
         self.end_date = end_date
 
-
     @staticmethod
-    def get_all_tours():
-        stmt = text("SELECT name FROM tour")
-        res = db.engine.execute(stmt)
-        results = []
-        for item in res:
-            results.append(item[0])
-        return results
-
-    @staticmethod
-    def get_tourName_by_id(id):
-        stmt = text("SELECT name FROM tour WHERE id = " + str(id) + ";")
+    def get_tourName_by_id(id=0):
+        stmt = text("SELECT name FROM tour WHERE id = :id;").params(id=id)
         res = db.engine.execute(stmt)
         result = ""
         for item in res:
@@ -39,11 +29,23 @@ class Tour(db.Model):
         return result
 
     @staticmethod
-    def get_gig_amount_by_id(id):
-        stmt = text("SELECT COUNT (tour_id) FROM gig WHERE tour_id = " + str(id) + ";")
+    def get_gig_amount_by_id(id=0):
+        stmt = text("SELECT COUNT (tour_id) FROM gig WHERE tour_id = :id;").params(id=id)
         res = db.engine.execute(stmt)
         result = 0
         for item in res:
             result = item[0]
         return result
-       
+
+    
+    @staticmethod
+    def get_index(id=0):
+        stmt = text("SELECT tour_id FROM tours_users"
+                    " WHERE account_id= :id;").params(id=id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response

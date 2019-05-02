@@ -5,7 +5,7 @@ from application import app, db, login_required, login_manager
 from application.auth.models import User, Role
 from application.gigs.models import Gig
 from application.tour.models import Tour
-
+from sqlalchemy import func
 from application.auth.forms import LoginForm, RegistrationForm, ProfileForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
@@ -20,8 +20,7 @@ def auth_login():
     if not user:
         return render_template("auth/loginform.html", form = form,
                                error = "Käyttäjätunnusta tai salasanaa ei löydy")
-
-
+   
     print("Käyttäjä " + user.name + " tunnistettiin")
     login_user(user)
     return redirect(url_for("index"))    
@@ -56,12 +55,14 @@ def auth_register():
 @app.route("/auth/profile/", methods=["GET"])
 @login_required()
 def auth_profile_view():
-    idnum = current_user.id
+    
+    upcoming = Gig.upcoming(current_user.id)
+    past = Gig.past(current_user.id)
+    cancelled = Gig.cancelled(current_user.id)
+
     form = ProfileForm(request.form)
-    upcoming_gigs = Gig.upcoming_gigs(idnum)
-    past_gigs = Gig.past_gigs(idnum)
-    cancelled_gigs = Gig.cancelled_gigs(idnum)
-    return render_template("auth/profileform.html",form=form, current = User.query.get(idnum), upcoming = upcoming_gigs, past = past_gigs, cancelled = cancelled_gigs)
+   
+    return render_template("auth/profileform.html",form=form,  upcoming = upcoming, past = past, cancelled = cancelled)
 
 
 @app.route("/auth/profile/edit/", methods=["GET","POST"])

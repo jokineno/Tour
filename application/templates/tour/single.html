@@ -49,6 +49,7 @@
         <td>{{ gig.showtime.strftime('%H:%M') }}</td>
         <td>{{ gig.status }}</td>
         <td>
+            {% if current_user.role.name == "ADMIN" %}
             <form method="GET" action="{{ url_for('gigs_edit', gig_id=gig.id) }}">
                 <input type="submit" class="btn btn-primary" value=" edit " />
             </form>
@@ -57,6 +58,7 @@
             <form method="POST" action="{{ url_for('gigs_remove_2', gig_id=gig.id) }}">
                 <input type="submit" class="btn btn-danger" value=" delete " />
             </form>
+            {% endif %}
         </td>
 
     </tr>
@@ -64,10 +66,12 @@
     {% endfor %}
 </table>
 <br>
+{% if current_user.role.name == "ADMIN" %}
 {% if tour.id != 1 %}
-<form method="POST" action="{{ url_for('tour_remove', tour_id=tour.id) }}">
-    <input type="submit" class="btn btn-danger" value="DELETE TOUR and GIGS! " />
+<form method="POST" action="{{ url_for('are_you_sure', tour_id=tour.id) }}">
+    <input type="submit" class="btn btn-danger" value="Delete the tour and the related gigs! " />
 </form>
+{% endif %}
 {% endif %}
 <br>
 <form method="GET" action="{{ url_for('tour_index') }}">

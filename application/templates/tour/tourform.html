@@ -30,8 +30,10 @@
 
 {% endif %}
 
+{% if current_user.role.name == "ADMIN" %}
 <form method="GET" action="{{ url_for('tour_form') }}">
     <input type="submit" class="btn btn-primary" value="Create new tour!" />
 </form>
+{% endif %}
 
 {% endblock %}

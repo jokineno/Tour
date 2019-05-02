@@ -12,7 +12,7 @@ class Gig(db.Model):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
-
+    
     tour_id = db.Column(db.Integer,db.ForeignKey('tour.id'),nullable=False)
 
     
@@ -24,61 +24,44 @@ class Gig(db.Model):
         self.showtime = showtime
         self.status = False
 
-
-    @staticmethod
-    def upcoming_gigs(user_id):
-        stmt = text("SELECT COUNT (account_id) FROM Gig WHERE account_id ="+str(user_id)+" AND status='Tulossa';")
-        res = db.engine.execute(stmt)
-        result = 0
-        for row in res:
-            result = row[0]
-           
-        return result
-    
-    @staticmethod
-    def past_gigs(user_id):
-        stmt = text("SELECT COUNT (account_id) FROM Gig WHERE account_id ="+str(user_id)+" AND status='Mennyt';")
-        res = db.engine.execute(stmt)
-        result = 0
-        for row in res:
-            result = row[0]
-           
-        return result
-    
-    @staticmethod
-    def cancelled_gigs(user_id):
-        stmt = text("SELECT COUNT (account_id) FROM Gig WHERE account_id ="+str(user_id)+" AND status='Peruttu';")
-        res = db.engine.execute(stmt)
-        result = 0
-        for row in res:
-            result = row[0]
-           
-        return result
-
-    
-    @staticmethod    
-    def find_gigs(query):
-        #Note.query.filter(Note.message.like("%somestr%")).all()
-        #KOKEILE TÄTÄ
-    
-        stmt = text("SELECT * FROM Tour"
-                    " LEFT JOIN gig ON Tour.id = tour_id"
-                    " WHERE (Tour.name || Gig.place || Gig.name) LIKE '%{0}%';".format(query))
-        res = db.engine.execute(stmt)
-
-        response = []
-        for row in res:
-            response.append(row)
-
-        return response
-
    
     @staticmethod
-    def gigs_by_tour_id(tourid):
-        stmt = text("SELECT * FROM Gig WHERE tour_id = " + str(tourid) + ";")
+    def gigs_by_tour_id(tourid=0):
+        stmt = text("SELECT * FROM Gig WHERE tour_id = :tourid ;").params(tourid=tourid)
         res = db.engine.execute(stmt)
         response = []
         for row in res:
             response.append(row)
 
         return response
+
+    @staticmethod
+    def upcoming(account_id=0):
+        stmt = text("SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Upcoming';").params(account_id=account_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response[0]
+
+    @staticmethod
+    def past(account_id=0):
+        stmt = text("SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Past';").params(account_id=account_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response[0]
+
+    @staticmethod
+    def cancelled(account_id=0):
+        stmt = text("SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Cancelled';").params(account_id=account_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response[0]    
+

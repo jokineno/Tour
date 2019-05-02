@@ -2,6 +2,7 @@
 
 {% block body %}
 
+
 <form method="GET" action="{{ url_for('find_gigs') }}">
   <div class="input-group mb-3">
     <input name="query" type="text" class="form-control" placeholder="Search by: 'tour name' or 'city' " aria-label="Haku"
@@ -35,15 +36,16 @@
     {% if current_user.role.name=="ADMIN" %}
     <th>Poista</th>
     {% endif %}
-    <th>Pvm</th>
-    <th>Keikka</th>
-    <th>Paikka</th>
+    <th>Date</th>
+    <th>Gig</th>
+    <th>Place</th>
     <th>Showtime</th>
-    <th>Tila</th>
-    <th>Kiertue</th>
+    <th>Status</th>
+    <th>Tour</th>
 
   </tr>
-  {% for gig in gigs %}
+  {% for tour in tours %}
+  {% for gig in tour.gigs %}
 
   <tr>
     {% if current_user.role.name=="ADMIN" %}
@@ -58,11 +60,13 @@
     <td>{{ gig.status }}</td>
     <td>{{ tourName(gig.tour_id) }}</td>
 
+    {% if current_user.role.name == "ADMIN" %}
     <td>
       <form method="POST" action="{{ url_for('gigs_change_status', gig_id=gig.id) }}">
-        <input type="submit" class="btn btn-secondary" value="Muuta status!" />
+        <input type="submit" class="btn btn-secondary" value="Change status!" />
       </form>
     </td>
+    {% endif %}
     <td>
       <form method="GET" action="{{ url_for('gigs_view', gig_id=gig.id) }}">
         <input type="submit" class="btn btn-primary" value="View!" />
@@ -70,6 +74,7 @@
     </td>
 
   </tr>
+  {% endfor %}
   {% endfor %}
 </table>
 
