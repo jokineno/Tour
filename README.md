@@ -1,5 +1,5 @@
 ### The Tour
-Sovellus on web-sivusto, josta muusikot näkevät keskitetysti kiertueen keikat ja keikkaan liittyviä tietoja. 
+The Tour on websovellus, joka on suunniteltu tapahtumatuotantoryhmille. Kiertueella on tapahtumia, keikkoja, joihin liittyy käyttäjiä. Peruskäyttäjät voivat tarkastella tulevia ja menneitä tapahtumiaan sovelluksen avulla kootusti. Superkäyttäjä ali admin voi lisätä uusia tapahtumia ja kiertueita, jotka liittyvät tiettyihin käyttäjiin. Tällä tavoin esimerkiksi uuden kiertueen ja sen tapahtumien keskittäminen kaikille kiertueen jäsenille helpottaa produktion organisointia. 
 
 
 [Linkki tuotannossa olevaan sovellukseen](https://tsoha-tour-demo.herokuapp.com)
