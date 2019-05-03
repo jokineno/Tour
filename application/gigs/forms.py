@@ -7,8 +7,8 @@ from wtforms.fields.html5 import DateField, TimeField
 class GigForm(FlaskForm):
     name = StringField("Venue",[validators.InputRequired(),validators.Length(min=2, max=30, message="Must be within 2-30 characters")])
     place = StringField("City", [validators.InputRequired(),validators.Length(min=2, max=30, message="Must be within 2-30 characters")])
-    pvm = DateField("Date",format='%Y-%m-%d')
-    showtime = TimeField("Showtime:", format='%H:%M')
+    pvm = DateField("Date",format='%Y-%m-%d',validators=[validators.InputRequired()] )
+    showtime = TimeField("Showtime:", format='%H:%M',validators=[validators.InputRequired()])
     status = SelectField("Status", choices=[("Upcoming","Upcoming"),("Past","Past"),("Cancelled","Cancelled")], option_widget=None)
     tour_id = SelectField("Tour", choices=[], coerce=int)
     

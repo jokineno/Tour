@@ -1,14 +1,28 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<p>Name, Username and Password must be within 2-20 characters</p>
+<p>Allowed characters are: A-Z, a-z and 0-9</p>
+<table>
 <form method="POST" action="{{ url_for('auth_register') }}">
     <div class="form-group">
         {{ form.name.label }}
         {{ form.name(class="form-control") }}
     </div>
+    <div>
+        <td>
+            <ul>
+                {% for error in form.name.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+    </div>
     <div class="form-group">
         {{ form.username.label }}
         {{ form.username(class="form-control") }}
+    </div>
+
     <div class="form-group">
         {{ form.password.label }}
         {{ form.password(class="form-control") }}
@@ -17,7 +31,9 @@
     {% for error in form.username.errors %}
     <div class="alert alert-warning mt-3">
         {{ error }}
+
     </div>
     {% endfor %}
 </form>
+</table>
 {% endblock %}

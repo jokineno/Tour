@@ -7,8 +7,7 @@ from application.gigs.forms import GigForm
 from application.tour.models import Tour
 from flask_login import current_user
 from sqlalchemy import desc, asc
-
-
+from flask_paginate import Pagination, get_page_args
 
 
 @app.route("/gigs/",methods=["GET"])
@@ -24,7 +23,7 @@ def gigs_index():
 def gigs_form(role="ADMIN"):
 
     form = GigForm(request.form)
-    tours = [(tour.id, tour.name) for tour in Tour.query.all()]#[(g.id, g.name) for g in Tour.query.order_by('name')]
+    tours = [(tour.id, tour.name) for tour in Tour.query.all()]
     form.tour_id.choices = tours
     
     return render_template("gigs/new.html", form=form)
@@ -135,8 +134,6 @@ def find_gigs():
         tours = Tour.query.filter(Tour.name.like(args))
         return render_template("gigs/list.html", tours=tours, tourName=Tour.get_tourName_by_id)    
    
-    
-
 
 
 @app.route("/gigs/asc_by_date/", methods=["GET"])

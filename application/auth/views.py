@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 
 from application import app, db, login_required, login_manager
@@ -7,6 +7,7 @@ from application.gigs.models import Gig
 from application.tour.models import Tour
 from sqlalchemy import func
 from application.auth.forms import LoginForm, RegistrationForm, ProfileForm
+
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -39,6 +40,7 @@ def auth_register():
     form = RegistrationForm(request.form)
 
     if not form.validate():
+        flash('Use A-Z, a-z and 0-9. For example "new_user20".')
         return render_template("auth/registrationform.html", form = form)
 
     u = User(form.name.data, form.username.data, form.password.data)
