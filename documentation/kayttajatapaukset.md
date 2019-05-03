@@ -9,3 +9,52 @@
 
 
 
+
+
+### Admin
+- Admin haluaa listata kaikki keikat 
+
+```
+> `SELECT * FROM GIG`
+```
+
+
+- Admin haluaa listata kaikki kiertueet
+
+```
+> `SELECT * FROM Tour`
+```
+
+- Admin haluaa listata kaikki keikat siten, että näkee myös kiertueen nimen: 
+
+```
+> `SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM Gig INNER JOIN Tour on Gig.tour_id = Tour.id;`
+```
+
+- Admin haluaa listata kiertueet keikkojen määrän mukaan: 
+
+```
+> `SELECT tour.name, count(*) FROM Gig INNER JOIN tour ON Tour.id=gig.tour_id  GROUP BY tour.name;`
+```
+
+- Admin haluaa listata käyttäjät keikkojen määrän mukaan: 
+
+
+```
+> `SELECT account.name, count(*) FROM tours_users INNER JOIN account ON tours_users.account_id = account.id GROUP BY account.name;`
+```
+
+
+
+### Käyttäjä 
+- Haluaa nähdä kuinka monta tulevaa, mennyttä tai peruttua keikkaa hänellä on: 
+
+
+```
+> `SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Upcoming';")`
+> SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Past';")`
+> SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Cancelled';"`
+```
+
+
+- Haluaa nähdä häneen liittyvät keikat: 
