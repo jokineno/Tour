@@ -134,13 +134,12 @@ def find_gigs():
     args = "%" + request.args.get('query') + "%"
 
     if current_user.role.name=="USER":
-        idx = Tour.get_index(current_user.id)
-        tours = Tour.query.filter(Tour.name.like(args),Tour.id.in_(idx))
-        return render_template("gigs/list.html", tours=tours, tourName=Tour.get_tourName_by_id) 
+        gigs = Gig.find_gigs_user(args,current_user.id)
+        return render_template("gigs/list.html", gigs=gigs) 
 
     elif current_user.role.name=="ADMIN":
-        tours = Tour.query.filter(Tour.name.like(args))
-        return render_template("gigs/list.html", tours=tours, tourName=Tour.get_tourName_by_id)    
+        gigs = Gig.find_gigs_admin(args)
+        return render_template("gigs/list.html", gigs=gigs)
    
 
 

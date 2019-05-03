@@ -128,3 +128,24 @@ class Gig(db.Model):
             response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
 
         return response
+
+    
+    @staticmethod
+    def find_gigs_admin(query=0):
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE Tour.name LIKE '%{0}%';".format(query))
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
+
+        return response
+
+    @staticmethod
+    def find_gigs_user(query=0, account_id=account_id):
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE Tour.name LIKE '%{0}%'  AND tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id);".format(query)).params(account_id=account_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
+
+        return response   
