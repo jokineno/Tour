@@ -68,3 +68,13 @@ class Gig(db.Model):
 
 #SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM Gig INNER JOIN Tour on Gig.tour_id = Tour.id GROUP BY gig.name;
 #ADMININLLE KAIKKI KEIKAT
+
+    @staticmethod
+    def allgigsforuser(account_id=0):
+        stmt = text("SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id)").params(account_id=account_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response[0]    

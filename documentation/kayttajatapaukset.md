@@ -73,3 +73,7 @@ Parametrinä käyttäjän id account.id
 
 
 - Haluaa nähdä häneen liittyvät keikat: 
+
+```
+> `SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id)`
+```
