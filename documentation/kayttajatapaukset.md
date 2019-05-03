@@ -45,10 +45,25 @@
 ```
 
 
+- Admin haluaa lisätä uuden keikan: 
+
+
+```
+> `INSERT INTO GIG (id, name, place,pvm, showtime, status, account_id, tour_id) VALUES (?,?,?,?,?,?,?,?);`
+Parametreinä, id, nimi, paikka, päivämäärä, showtime, status, keikkaan liittyvä id ja keikkaan liittyvä kiertue. 
+```
+
+- Admin haluaa poistaa käyttäjän: 
+
+```
+> `DELETE FROM account WHERE account.id = ?`
+Parametrinä käyttäjän id account.id
+```
+
+
 
 ### Käyttäjä 
 - Haluaa nähdä kuinka monta tulevaa, mennyttä tai peruttua keikkaa hänellä on: 
-
 
 ```
 > `SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Upcoming';")`
