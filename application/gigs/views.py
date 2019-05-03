@@ -70,8 +70,10 @@ def gigs_remove_2(gig_id):
 def gigs_create(role="ADMIN"):
     
     form = GigForm(request.form)  
-    #selvitä tämä mysteeri! 
-    if not form.validate_on_submit():
+    tours = [(tour.id, tour.name) for tour in Tour.query.order_by('name')]
+    form.tour_id.choices = tours
+    
+    if  form.validate_on_submit():
         gig = Gig(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
         gig.status = form.status.data
         gig.account_id = current_user.id
@@ -83,10 +85,10 @@ def gigs_create(role="ADMIN"):
         return redirect(url_for("gigs_index"))
     
     elif not form.validate():
-        print("FORM EI VALIDOI")
+        
         tours = [(tour.id, tour.name) for tour in Tour.query.order_by('name')]
         form.tour_id.choices = tours
-        print(tours)
+        
         return render_template("gigs/new.html", form = form)
 
 
