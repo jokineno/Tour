@@ -15,10 +15,6 @@ def gigs_index():
 
     if current_user.role.name == "ADMIN":
         gigs = Gig.allgigsforadmin()
-        print("**********")
-        for gig in gigs:
-            print(gig)
-        print("**********")
         return render_template("gigs/list.html", gigs=gigs)
     else:
         gigs = Gig.allgigsforuser(current_user.id)
