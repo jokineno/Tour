@@ -1,4 +1,8 @@
- # Asennus paikallisesti
+#### Sovelluksen käyttöönotto selaimessa
+
+[Linkki sovellukseen](https://tsoha-tour-demo.herokuapp.com)
+
+# Asennus paikallisesti
 
 Käyttäjän tulisi osata komentorivin perusteet, niin asennus onnistuu vaivatta. 
 
@@ -109,3 +113,6 @@ projekti::DATABASE=> INSERT INTO account (name, username, password, role_id) VAL
 ```
 
 role_id tulee olla 2, sillä se tarkoittaa pääkäyttäjää. role_id = 1 olisi tavallinen käyttäjä. 
+
+
+

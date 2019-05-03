@@ -58,7 +58,12 @@ Parametreinä, id, nimi, paikka, päivämäärä, showtime, status, keikkaan lii
 Parametrinä käyttäjän id account.id
 ```
 
+- Admin haluaa poistaa keikan
 
+```
+> `DELETE FROM Gig WHERE gig.id = ?`
+Parametrinä keikan id. 
+```
 
 ### Käyttäjä 
 - Haluaa nähdä kuinka monta tulevaa, mennyttä tai peruttua keikkaa hänellä on: 
@@ -95,3 +100,10 @@ Parametrinä käyttäjän id account.id
 parametreinä query eli haku ja account_id
 ```
 
+- Käyttäjä haluaa päivittää nimeään tai käyttäjätunnusta: 
+
+```
+> `UPDATE account SET name = '?' WHERE account_id = ?;`
+Parametrinä käyttäjän id account_id.
+name tilalla voi olla myös username, mikäli haluaa päivittää vain sen. 
+```
