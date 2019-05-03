@@ -71,10 +71,60 @@ class Gig(db.Model):
 
     @staticmethod
     def allgigsforuser(account_id=0):
-        stmt = text("SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id)").params(account_id=account_id)
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id)").params(account_id=account_id)
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            response.append(row[0])
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
 
-        return response[0]    
+        return response  
+
+    @staticmethod
+    def allgigsforuserasc(account_id=0):
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) ORDER BY gig.pvm").params(account_id=account_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
+
+        return response
+
+    @staticmethod
+    def allgigsforuserdesc(account_id=0):
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) ORDER BY gig.pvm DESC").params(account_id=account_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
+
+        return response
+
+    @staticmethod
+    def allgigsforadmin():
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN Tour on Gig.tour_id = Tour.id;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
+
+        return response    
+    
+    @staticmethod
+    def allgigsadminasc():
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN Tour on Gig.tour_id = Tour.id ORDER BY gig.pvm;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
+
+        return response    
+    
+    @staticmethod
+    def allgigsadmindesc():
+        stmt = text("SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN Tour on Gig.tour_id = Tour.id ORDER BY gig.pvm DESC;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"id":row[0], "pvm":row[1], "gigname":row[2], "place":row[3], "showtime":row[4], "status":row[5],"tourname":row[6]})
+
+        return response

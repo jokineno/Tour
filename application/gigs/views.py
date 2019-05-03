@@ -12,10 +12,17 @@ from sqlalchemy import desc, asc
 @app.route("/gigs/",methods=["GET"])
 @login_required()
 def gigs_index():
+
     if current_user.role.name == "ADMIN":
-        return render_template("gigs/list.html", tours=Tour.query.all(), tourName = Tour.get_tourName_by_id)
+        gigs = Gig.allgigsforadmin()
+        print("**********")
+        for gig in gigs:
+            print(gig)
+        print("**********")
+        return render_template("gigs/list.html", gigs=gigs)
     else:
-        return render_template("gigs/list.html", tourName = Tour.get_tourName_by_id, tours=current_user.tours)
+        gigs = Gig.allgigsforuser(current_user.id)
+        return render_template("gigs/list.html", gigs=gigs) #tourName = Tour.get_tourName_by_id, tours=current_user.tours)
 
 @app.route("/gigs/new/", methods=["GET","POST"])
 @login_required()
@@ -72,7 +79,7 @@ def gigs_create(role="ADMIN"):
     form = GigForm(request.form)  
     tours = [(tour.id, tour.name) for tour in Tour.query.order_by('name')]
     form.tour_id.choices = tours
-    
+
     if  form.validate_on_submit():
         gig = Gig(form.name.data, form.place.data, form.pvm.data, form.showtime.data)
         gig.status = form.status.data
@@ -140,11 +147,20 @@ def find_gigs():
 @app.route("/gigs/asc_by_date/", methods=["GET"])
 @login_required()
 def list_by_date_asc():
-    
-    return render_template("/gigs/list.html",gigs=Gig.query.order_by(asc(Gig.pvm)).all(), tourName=Tour.get_tourName_by_id)    
+    if current_user.role.name=="USER":
+        gigs = Gig.allgigsforuserasc(current_user.id)
+        return render_template("/gigs/list.html",gigs=gigs)
+    elif current_user.role.name=="ADMIN":
+        gigs = Gig.allgigsadminasc()
+        return render_template("/gigs/list.html",gigs=gigs)   
 
 @app.route("/gigs/desc_by_date/", methods=["GET"])
 @login_required()
 def list_by_date_desc():
-    return render_template("/gigs/list.html", gigs=Gig.query.order_by(desc(Gig.pvm)).all(), tourName=Tour.get_tourName_by_id)    
+    if current_user.role.name=="USER":
+        gigs = Gig.allgigsforuserdesc(current_user.id)
+        return render_template("/gigs/list.html", gigs=gigs)
+    elif current_user.role.name=="ADMIN":
+        gigs = Gig.allgigsadmindesc()
+        return render_template("/gigs/list.html", gigs=gigs)
 

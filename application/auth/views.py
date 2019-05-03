@@ -83,7 +83,6 @@ def auth_profile_edit():
     
     profile.name = form.name.data
     profile.username = form.username.data
-    profile.role = form.role.data
     
     db.session().commit()
 

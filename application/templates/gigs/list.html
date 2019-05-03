@@ -46,37 +46,37 @@
 
   </tr>
   
-  {% for tour in tours %}
-  {% for gig in tour.gigs %}
+  
+  {% for gig in gigs %}
 
   <tr>
     {% if current_user.role.name=="ADMIN" %}
    
 
-    <td><form method="POST" action="{{ url_for('gigs_remove', gig_id=gig.id) }}"><button  type="submit" class="btn btn-danger">Delete</button></form></td>
+    <td><form method="POST" action="{{ url_for('gigs_remove', gig_id=gig['id']) }}"><button  type="submit" class="btn btn-danger">Delete</button></form></td>
     {% endif %}
-    <td>{{ gig.pvm }}</td>
-    <td>{{ gig.name }}</td>
-    <td>{{ gig.place }}</td>
-    <td>{{ gig.showtime }}</td>
-    <td>{{ gig.status }}</td>
-    <td>{{ tourName(gig.tour_id) }}</td>
+    <td>{{ gig['pvm'] }}</td>
+    <td>{{ gig['gigname'] }}</td>
+    <td>{{ gig['place'] }}</td>
+    <td>{{ gig['showtime'] }}</td>
+    <td>{{ gig['status'] }}</td>
+    <td>{{ gig['tourname'] }}</td>
 
     {% if current_user.role.name == "ADMIN" %}
     <td>
-      <form method="POST" action="{{ url_for('gigs_change_status', gig_id=gig.id) }}">
+      <form method="POST" action="{{ url_for('gigs_change_status', gig_id=gig['id']) }}">
         <input type="submit" class="btn btn-secondary" value="Change status!" />
       </form>
     </td>
     {% endif %}
     <td>
-      <form method="GET" action="{{ url_for('gigs_view', gig_id=gig.id) }}">
+      <form method="GET" action="{{ url_for('gigs_view', gig_id=gig['id']) }}">
         <input type="submit" class="btn btn-primary" value="View!" />
       </form>
     </td>
 
   </tr>
-  {% endfor %}
+  
   {% endfor %}
 </table>
 </div>

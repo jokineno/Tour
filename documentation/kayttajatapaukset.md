@@ -12,10 +12,10 @@
 
 
 ### Admin
-- Admin haluaa listata kaikki keikat 
+- Admin haluaa listata kaikki keikat, jossa on mukana kiertueen nimi 
 
 ```
-> `SELECT * FROM GIG`
+> `SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN Tour on Gig.tour_id = Tour.id;`
 ```
 
 
@@ -67,13 +67,24 @@ Parametrinä käyttäjän id account.id
 
 ```
 > `SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Upcoming';")`
+
 > SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Past';")`
+
 > SELECT COUNT (gig.id) FROM Gig WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) and gig.status='Cancelled';"`
 ```
 
 
-- Haluaa nähdä häneen liittyvät keikat: 
+- Käyttäjä haluaa nähdä häneen liittyvät keikat: 
 
 ```
 > `SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id)`
 ```
+
+- Käyttäjä haluaa listata hänen keikkansa nousevaan tai laskevaan järjestykseen:
+
+```
+> `SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) ORDER BY gig.pvm"`
+
+`SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) ORDER BY gig.pvm DESC"`
+```
+
