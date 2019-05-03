@@ -7,7 +7,6 @@ from application.gigs.forms import GigForm
 from application.tour.models import Tour
 from flask_login import current_user
 from sqlalchemy import desc, asc
-from flask_paginate import Pagination, get_page_args
 
 
 @app.route("/gigs/",methods=["GET"])
