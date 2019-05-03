@@ -20,6 +20,11 @@ $ git clone git@github.com:jokineno/tour.git
 
 Vaihtoehtoisesti projektin voi ladata purettavaksi .zip-tiedostona osoitteesta https://github.com/jokineno/Tour
 
+1. Tällöin mene komentorivilla latauskansioon ja kirjoita: 
+```
+$ cd Tour-master
+```
+
 2. Virtuaaliympäristön asennus ja aktivointi
 ```
 $ python3 -m venv venv
