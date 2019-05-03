@@ -54,6 +54,11 @@ tour_id | Kokonaisluku, joka kuvaa mihin kiertueeseen keikka liittyy | pakolline
 
 
 
+### Normalisointi
+- Tauluja ei ole normalisoitu. Taulut sisältävät jonkin verran samaa päällekkäistä tietoa, mutta ne ovat tärkeitä riippuvuuksien takia. Taulujen toimintaa olisi voitu tehostaa luomalla esimerkiksi gig -tauluun keikkojen yhteismäärän, mutta en löytänyt sille keskeistä käyttötarkoitusta sovellukseen.  
+- Indeksejä ei ole erikseen. PostgreSql luo pääavaimille indeksit automaattisesti. Sovelluksen toiminnan kannalta minulla ei ole tarvetta luota indeksejä.  
+
+
 
 CREATE TABLE -lausee: 
 
