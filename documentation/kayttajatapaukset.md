@@ -8,24 +8,77 @@
 5. Uusi käyttäjä haluaa luoda tunnukset. Hän painaa 'rekisteröidy' ja syöttää tunnukset. Lomakkeen kentät on validoitu. Rekisteröitymisen onnistuttua käyttäjälle luodaan automaattisesti "muut -kiertue". 
 
 
-### Käyttäjät
-Sovelluksella on kaksi käyttäjäryhmää, jotka vaativat kirjautumisen:
-- Peruskäyttäjä ja Admin.
+### Rekisteröityminen
 
-#### Peruskäyttäjä voi:
-- Tarkastella keikkoja ja niihin liittyviä tietoja.
-- Muuttaa omia tietojaan, mutta ei käyttäjäroolia
+1. Käyttäjä painaa oikeasta yläkulmasta register ja täyttää kentät. 
+2. Kaikki kentät ovat pakollisia. 
+3. Validoinnin onnistuessa käyttäjä saa käyttäjäroolikseen "USER". Hän ei voi itse sitä muuttaa, mutta admin voi antaa hänelle sovelluksen hallintaoikeudet. 
+4. Jos käyttäjätunnus on jo olemassa tai käyttäjä ei käytä a-z, 0-9 merkkejä, niin hänen syötteensä hylätään ja hänen tulee yrittää rekisteröintiä uudestaan. 
 
-#### Admin voi:
-- Lisätä, poistaa, muokata konsertteja ja niihin liittyviä yksityiskohtia.
-- Listata käyttäjiä (saada mahdollisesti raportteja heistä: esim soitettujen keikkojen määrä tms statistiikkaa)
-- Muokata käyttäjien oikeuksia
-- Nähdä kaikki käyttäjät
+### Kirjautuminen
 
-### Toiminnallisuus
-- Kirjautuminen ja uloskirjautuminen: peruskäyttäjä tai admin.
-- Kirjautumisessa on käytössä lomakkeen validointi. Esim: salasana ei saa olla tyhjä tai nimimerkin pitää olla vähintään 2 merkkiä pitkä. 
-- Keikkojen listaus eri filtterein (myöhemmin): päivämäärän (ennen/jälkeen), nouseva tai laskeva järjestys pvm mukaan tai keikkojen listaus artistin perusteella. -> tietty keikka liittyy aina tiettyyn artistiin.
-- Käyttäjien listaus, poistaminen, muokkaaminen (Admin)
-- Admin voi myös poistaa muusikon yksittäiseltä keikalta ja lisätä tämän tilalleen esimerkiksi toisen soittajan.
+1. Käyttäjä painaa login ja täyttää käyttäjätunnus ja salasanakentän. 
+2. Jos tunnukset vastaavat tietokannan tietoja, käyttäjä kirjautuu. 
 
+### Uloskirjautuminen
+
+1. Käyttäjä painaa logout ja kirjautuu automaattisesti ulos. 
+
+### Omien tietojen tarkastelu
+
+1. Käyttäjä painaa oikeasta yläkulmasta "profile", joka johtaa hänen profiilin tietoihin. 
+2. Hän voi muokata nimeään ja käyttäjätunnustaan ja tallentaa tiedot. 
+3. Käyttäjä näkeel lisäksi pienen tilaston hänen soittamistaan, tulevista ja peruttujen keikkojen määrästä. 
+
+### Keikkojen tarkastelu
+
+1. Käyttäjä painaa "Your Gigs", jossa hän näkee häneen liittyvät keikat. 
+2. Hän voi painaa lisäksi view, josta hän pääsee tarkastelemaan yksittäisen keikan tietoja. 
+3. Käyttäjä ei voi poistaa keikkoja vain admin voi poistaa keikkoja. Admin voi poistaa keikan "delete" -painikkeesta. 
+4. Delete -nappi ei luo "varmistus"-kenttää vaan poistaa keikan suoraan. Koen, että vahinkopainalluksen takia suurta määrää työtä ei tarvi tehdä uudelleen, joten tämä on vain käytön sujuvoittamiseksi. 
+4. Jos ohjelmaa käyttää admin, niin hän näkee "ALL gigs" -painikkeesta kaikkien keikat. 
+
+### Keikan luonti
+
+1. Vain admin voi luoda keikkoja. 
+2. Admin painaa "create a new gig" navigointipalkista, joka johdattaa hänet keikan luonti -lomakkeelle. 
+3. Jos lomake validoidaan lähettäessä, uusi keikka luodaan. 
+4. Ennen keikkaa on luotu kiertue, johon liitetty käyttäjiä. Keikkaa luotaessa valitaan kiertue. Keikka lisätään ainoastaan niille käyttäjille, jotka liittyvät valittuun kiertueeseen. 
+5. Jos validointi ei onnistu, niin ohjelma palauttaa käyttäjlle "fill this field" kyseisen kentän kohdalla. 
+
+
+### Kiertueen luonti
+
+1. Vain admin voi luoda kiertueen.
+2. Kiertuessa luotaessa määritetään kiertueen nimi, aloitus -ja lopetuspäivä. Lisäksi merkitään käyttäjät, jotka liittyvät kiertueeseen. 
+
+
+### Kiertueiden tarkastelu
+
+1. User ja Admin voi tarkastella kiertueita.
+2. USer näkee vain häneen liittyvät kiertueet ja admin näkee kaikki kiertueet. 
+3. Kiertuista näkee myös kuinka monta keikkaa niihin liittyy. 
+
+
+### Kiertueiden poisto
+
+1. Vain admin voi poistaa kiertueen. 
+2. Admin on kirtueet -näkymässä ja painaa view. 
+3. Seuraavaksi hän painaa delete tour and all gigs. 
+4. Tämä johtaa varmistus näkymään (yes or no), jotta admin ei vahingossa poista runsaasti dataa. 
+5. Kiertueen poistaminen aiheuttaa kiertueen sekä siihen liittyvien keikkojen häviämisen. 
+
+
+### Ohjelman hallinta
+
+1. Admin voi tarkastella käyttäjien ja kiertueiden sekä keikkojen tietoja. 
+2. Admin painaa "administration", josta hän voi nähdä listattuna kaikki käyttäjät. Hän voi muuttaa heidän rooliaan (change role) tai poistaa heidät järjestelmästä (x). 
+3. Admin näkee lisäksi kuinka monta keikkaa liittyy kuhunkin kiertueeseen ja käyttäjään. 
+
+
+
+### Kiertueiden ja keikkojen muokkaus
+
+1. Kiertueiden ja keikkojen muokkaus tapahtuu ainoastaan adminin toimesta. 
+2. Hän on joko all gigs tai all tours -näkymässä ja painaa halutun kiertueen/keikan kohdalta "edit", joka johtaa lomakkeelle, jossa tietoja voidaan muuttaa. 
+3. Save changes -nappulalla tiedot päivittyvät tietokantaan. 

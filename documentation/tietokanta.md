@@ -50,7 +50,7 @@ place | Keikkapaikan nimi, joka on merkkijono. Luodaan keikan luonnin yhteydess�
 pvm | Keikan päivämäärä, DATETIMe, jonka tulee olla muodossa yyyy-mm-dd. Kenttä validoidaan luodessa | olennainen käytön kannalta | 2019-03-03
 showtime | Keikan aloitusaika, TIME, jonka tulee olla muodossa HH:MM. Tietokanta käyttää pidempää muotoa, mutta käytön helpoittamiseksi riittää, että vain tunnit ja minuutit asetetaan | 23:00
 status | Keikan status, merkkijono, joka kuvaa onko keikka tulossa, mennyt vai peruttu. | ei olennainen, mutta helpottaa käyttöä | "upcoming" 
-tour_id | Kokonaisluku, joka kuvaa mihin kiertueeseen keikka liittyy | pakollinen ja vieras avain | 2
+tour_id | Kokonaisluku, joka kuvaa mihin kiertueeseen keikka liittyy | pakollinen ja vieras avain | 2   
 
 
 
