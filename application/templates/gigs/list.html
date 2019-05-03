@@ -5,7 +5,7 @@
 
 <form method="GET" action="{{ url_for('find_gigs') }}">
   <div class="input-group mb-3">
-    <input name="query" type="text" class="form-control" placeholder="Search by: 'tour name' or 'city' " aria-label="Haku"
+    <input name="query" type="text" class="form-control" placeholder="Search by: 'tour name' " aria-label="Haku"
       aria-describedby="button-addon2">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
@@ -30,7 +30,7 @@
 </div>
 <br>
 
-{{pagination.links}}
+
 <div class="container">
 <table class="table table-hover">
   <tr>
@@ -80,7 +80,7 @@
   {% endfor %}
 </table>
 </div>
-{{pagination.links}}
+
 <br>
 <br>
 
