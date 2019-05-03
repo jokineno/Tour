@@ -18,6 +18,13 @@
 > `SELECT gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN Tour on Gig.tour_id = Tour.id;`
 ```
 
+- Admin haluaa hakea keikkoja kiertueen nimen mukaan: 
+
+
+```
+> `SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE Tour.name LIKE '%{?}%';`
+Parametreinä query eli itse haku. 
+```
 
 - Admin haluaa listata kaikki kiertueet
 
@@ -86,5 +93,14 @@ Parametrinä käyttäjän id account.id
 > `SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) ORDER BY gig.pvm"`
 
 `SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id) ORDER BY gig.pvm DESC"`
+```
+
+- Käyttäjä haluaa hakea keikkoja kiertueen nimen mukaan
+
+
+```
+> `SELECT gig.id, gig.pvm, gig.name, gig.place, gig.showtime, gig.status, tour.name FROM GIG INNER JOIN TOUR on Gig.tour_id = Tour.id WHERE Tour.name LIKE '%{?}%'  AND tour_id IN (SELECT tour_id FROM tours_users WHERE account_id = :account_id);`
+
+parametreinä query eli haku ja account_id
 ```
 
