@@ -9,6 +9,8 @@
 #### The Tour - a project description
 - This project is a webapp, which is designed for creative live production teams. On a client side, customers can add events such as gigs or concerts which can be reviewed all who are attached to that event. Admins can make changes to the events. 
 - The Tour makes it easy for everyone who is participated in a project to follow what are the upcoming events on a tour. 
+- Use of a database:
+ - A user can list events by different parameters such as date (asc, desc). See "käyttäjätapauksia". It's in Finnish but the code is intuitive. 
 
 #### Exententions
 - Import events and add them to a calender app (google calender for example). 
